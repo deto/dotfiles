@@ -1,0 +1,60 @@
+filetype plugin indent on
+
+nmap <leader>l :set list!<CR>
+
+syntax enable
+
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set showmatch
+set number
+set mouse:a
+
+set foldmethod=indent
+set foldlevel=99
+
+
+"Move around windows (splits) easier
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+
+
+"map the <Esc> key to something easier
+imap jk <ESC>
+vmap jk <ESC>
+set timeoutlen=200
+
+"Abandoned buffers are hidden
+set hid
+
+"Ignore case when searching
+set ignorecase
+
+"When searching, try to be smart about cases
+set smartcase
+
+"Highlight search results
+set hlsearch
+
+"Make search act like search in modern browsers (?)
+set incsearch
+
+"Relative line numbers for easier jumping
+set relativenumber 
+
+"When making a new split, set focus to that split
+set splitbelow
+set splitright
+
+"Keep a margin of 5 lines to the end of the screen when scrolling
+set scrolloff=5
+
+"Highlight angle brackets like other bracket types
+set matchpairs+=<:>
+
+"Backspace should work like normal
+set backspace=indent,eol,start

@@ -1,0 +1,5 @@
+[user]
+	name = David DeTomaso
+	email = davedeto@gmail.com
+[core]
+	autocrlf = input
