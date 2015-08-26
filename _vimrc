@@ -36,19 +36,8 @@ map <F2> :NERDTreeToggle<CR>
 
 Plugin 'ivanov/vim-ipython'
 
-"Plugin 'klen/python-mode'
-"let g:pymode_trim_whitespaces = 1
-"let g:pymode_options_colorcolumn = 0
-"let g:pymode_rope = 0
-"let g:pymode_rope_complete_on_dot = 0
-"let g:pymode_run = 0
-"let g:pymode_lint_on_write = 0
-
 Plugin 'davidhalter/jedi-vim'
 let g:jedi#popup_on_dot = 0
-
-"Bundle 'altercation/vim-colors-solarized'
-"let g:solarized_termcolors=256
 
 Plugin 'sickill/vim-monokai'
 
@@ -159,14 +148,17 @@ set scrolloff=5
 "Highlight angle brackets like other bracket types
 set matchpairs+=<:>
 
-"Normal backspace
+"Normal Backspace
 set backspace=indent,eol,start
+
+if has('gui_running')
+    set guifont=Inconsolata-g_for_Powerline:h11:cANSI
+endif
 
 "Correct fonts for powerline/airline
 set encoding=utf-8
-set guifont=Inconsolata-g_for_Powerline:h11:cANSI
 
-"Use system clipboard
+"Use the system clipboard by default
 set clipboard=unnamed
 
 "Fix GVIM window resizing when making a vertical split
