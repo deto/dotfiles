@@ -30,12 +30,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree' 
 map <F2> :NERDTreeToggle<CR>
 
-"Plugin 'jpalardy/vim-slime'
-"let g:slime_target = "tmux"
-"let g:slime_python_ipython = 1
-
-Plugin 'ivanov/vim-ipython'
-
 Plugin 'davidhalter/jedi-vim'
 let g:jedi#popup_on_dot = 0
 
@@ -91,7 +85,12 @@ nmap <leader>l :set list!<CR>
 
 syntax enable
 set background=dark
-colorscheme monokai
+
+if &term=="win32" "Silly Windows 16 colors
+    color default
+else
+    colorscheme monokai
+endif
 
 set tabstop=4
 set expandtab
@@ -115,8 +114,6 @@ map <c-l> <c-w>l
 "map the <Esc> key to something easier
 imap jk <ESC>
 vmap jk <ESC>
-"highlight Pmenu ctermbg=DarkRed ctermfg=LightGray gui=bold
-"highlight PmenuSel ctermbg=LightGray ctermfg=DarkRed gui=bold
 
 "Abandoned buffers are hidden
 set hid
@@ -150,10 +147,6 @@ set matchpairs+=<:>
 
 "Normal Backspace
 set backspace=indent,eol,start
-
-if has('gui_running')
-    set guifont=Inconsolata-g_for_Powerline:h11:cANSI
-endif
 
 "Correct fonts for powerline/airline
 set encoding=utf-8
