@@ -30,12 +30,12 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree' 
 map <F2> :NERDTreeToggle<CR>
 
-Plugin 'davidhalter/jedi-vim'
-let g:jedi#popup_on_dot = 0
+"Plugin 'davidhalter/jedi-vim'
+"let g:jedi#popup_on_dot = 0
 
 Plugin 'sickill/vim-monokai'
 
-Bundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2 "Need this or else airline online works after making a split
 let g:airline#extensions#whitespace#enabled = 0
@@ -65,9 +65,16 @@ let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_theme = 'simple'
 
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+ \ 'dir': '\v[\/]\.(git|hg|svn)$',
+ \ 'file': '\v\.(pyc)$',
+ \ }
 
 
-Bundle 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
 
 Plugin 'tpope/vim-fugitive'
@@ -103,6 +110,8 @@ set mouse:a
 set foldmethod=indent
 set foldlevel=99
 
+"Change leader key to space
+let mapleader = "\<Space>"
 
 "Move around windows (splits) easier
 map <c-j> <c-w>j

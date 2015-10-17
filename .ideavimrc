@@ -25,3 +25,6 @@ set scrolloff=5
 
 "Match web tags like parenthesis
 set matchpairs+=<:>
+
+"Use the system clipboard by default
+set clipboard=unnamed
