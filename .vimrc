@@ -84,6 +84,15 @@ let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
 
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "End of Vundle plugins
 
@@ -156,3 +165,26 @@ set matchpairs+=<:>
 
 "Normal backspace
 set backspace=indent,eol,start
+
+"Use the system clipboard by default
+set clipboard=unnamed
+
+"Remap H and L (top, bottom of screen) to (left, right of line)
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
+
+"Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Windows resizing using arrow keys
+nnoremap <silent> <C-Left> :vertical resize +1<CR>
+nnoremap <silent> <C-Right> :vertical resize -1<CR>
+nnoremap <silent> <C-Up> :resize +1<CR>
+nnoremap <silent> <C-Down> :resize -1<CR>
+
+" Switch buffers easier
+nnoremap <silent> <C-N> :bn<CR>
+nnoremap <silent> <C-P> :bp<CR>
