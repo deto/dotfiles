@@ -180,12 +180,22 @@ set encoding=utf-8
 "Use the system clipboard by default
 set clipboard=unnamed
 
-"Fix GVIM window resizing when making a vertical split
-"When you create a vertical split, a left-handed scrollbar is added.  This
-"causes window resize and knocks the window out of it's position if it's
-"snapped
-set guioptions-=L "Don't add left-hand scrollbar on split 
-set guioptions-=R "Dont' add right-hand scrollbar on split
-set guioptions+=l "Enable Left-hand scrollbar always
-set guioptions+=r "Enable right-hand scrollbar always
+"Remap H and L (top, bottom of screen) to (left, right of line)
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
 
+"Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Windows resizing using arrow keys
+nnoremap <silent> <C-Left> :vertical resize +1<CR>
+nnoremap <silent> <C-Right> :vertical resize -1<CR>
+nnoremap <silent> <C-Up> :resize +1<CR>
+nnoremap <silent> <C-Down> :resize -1<CR>
+
+" Switch buffers easier
+nnoremap <silent> <C-N> :bn<CR>
+nnoremap <silent> <C-P> :bp<CR>

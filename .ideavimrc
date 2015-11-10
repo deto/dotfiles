@@ -1,3 +1,6 @@
+"Change leader key to space
+let mapleader = "\<Space>"
+
 "map the <Esc> key to something easier
 imap jk <ESC>
 vmap jk <ESC>
@@ -28,3 +31,17 @@ set matchpairs+=<:>
 
 "Use the system clipboard by default
 set clipboard=unnamed
+
+"Remap H and L (top, bottom of screen) to (left, right of line)
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
+
+"Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Switch buffers easier
+nnoremap <silent> <C-N> :action NextTab<CR>
+nnoremap <silent> <C-P> :action PreviousTab<CR>

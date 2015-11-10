@@ -34,19 +34,8 @@ Plugin 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
 
-"Plugin 'klen/python-mode'
-"let g:pymode_trim_whitespaces = 1
-"let g:pymode_options_colorcolumn = 0
-"let g:pymode_rope = 0
-"let g:pymode_rope_complete_on_dot = 0
-"let g:pymode_run = 0
-"let g:pymode_lint_on_write = 0
-
-Plugin 'davidhalter/jedi-vim'
-let g:jedi#popup_on_dot = 0
-
-"Bundle 'altercation/vim-colors-solarized'
-"let g:solarized_termcolors=256
+"Plugin 'davidhalter/jedi-vim'
+"let g:jedi#popup_on_dot = 0
 
 Plugin 'sickill/vim-monokai'
 
@@ -78,7 +67,16 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline_theme = 'simple'
 
+
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+ \ 'dir': '\v[\/]\.(git|hg|svn)$',
+ \ 'file': '\v\.(pyc)$',
+ \ }
 
 
 Bundle 'ervandew/supertab'
@@ -86,6 +84,15 @@ let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
 
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "End of Vundle plugins
 
@@ -112,6 +119,8 @@ set mouse:a
 set foldmethod=indent
 set foldlevel=99
 
+"Change leader key to space
+let mapleader = "\<Space>"
 
 "Move around windows (splits) easier
 map <c-j> <c-w>j
@@ -123,8 +132,6 @@ map <c-l> <c-w>l
 "map the <Esc> key to something easier
 imap jk <ESC>
 vmap jk <ESC>
-"highlight Pmenu ctermbg=DarkRed ctermfg=LightGray gui=bold
-"highlight PmenuSel ctermbg=LightGray ctermfg=DarkRed gui=bold
 
 "Abandoned buffers are hidden
 set hid
@@ -158,3 +165,26 @@ set matchpairs+=<:>
 
 "Normal backspace
 set backspace=indent,eol,start
+
+"Use the system clipboard by default
+set clipboard=unnamed
+
+"Remap H and L (top, bottom of screen) to (left, right of line)
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
+
+"Don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Windows resizing using arrow keys
+nnoremap <silent> <C-Left> :vertical resize +1<CR>
+nnoremap <silent> <C-Right> :vertical resize -1<CR>
+nnoremap <silent> <C-Up> :resize +1<CR>
+nnoremap <silent> <C-Down> :resize -1<CR>
+
+" Switch buffers easier
+nnoremap <silent> <C-N> :bn<CR>
+nnoremap <silent> <C-P> :bp<CR>
