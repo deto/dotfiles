@@ -77,10 +77,17 @@ let g:ctrlp_custom_ignore = {
  \ }
 
 
-Plugin 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
+" Plugin 'ervandew/supertab'
+" let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_insertion = 1
+nnoremap <Leader>d :YcmCompleter GetDoc<cr>
+
+" IF YOU ARE HAVING TROUBLE WITH PYTHON COMPLETION EXTENSIONS
+" SEE HERE - http://stackoverflow.com/questions/9764341/runtime-error-with-vim-omnicompletion/10257098#10257098
 
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 Plugin 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
@@ -100,7 +107,6 @@ call vundle#end()
 filetype plugin indent on
 
 "End of Vundle Section
-
 
 
 syntax enable
@@ -193,6 +199,9 @@ nnoremap <silent> <C-Down> :resize -1<CR>
 " Switch buffers easier
 nnoremap <silent> <C-N> :bn<CR>
 nnoremap <silent> <C-P> :bp<CR>
+
+" Don't wrap text lines (feels like I set this too much myself)
+set nowrap
 
 " Python Specific
 au FileType python setlocal formatprg=autopep8\ -
