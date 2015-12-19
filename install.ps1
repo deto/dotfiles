@@ -1,5 +1,7 @@
 $OS = "windows"
-$DOTFILES = Get-Location
+$SCRIPTFILE = $MyInvocation.MyCommand.Path
+$DOTFILES = Split-Path $SCRIPTFILE
+Write-Host "$DOTFILES"
 
 # Will link files that end in .symlink or .windows-symlink
 
@@ -10,7 +12,7 @@ Function Install-Symlinks {
         $name = Get-Basename $file.Name
         $symlink = "$HOME\$name"
         $target = $file.FullName
-
+	
         New-Symlink "$symlink" "$target"
     }
 }
@@ -62,3 +64,4 @@ Write-Host "-> Creating symbolic links..."
 Install-Symlinks
 Install-ConfigurableSymlinks
 Write-Host "-> Done!"
+PAUSE
