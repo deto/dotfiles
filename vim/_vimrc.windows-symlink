@@ -76,6 +76,11 @@ let g:ctrlp_custom_ignore = {
  \ 'file': '\v\.(pyc)$',
  \ }
 
+Plugin 'easymotion/vim-easymotion'
+nmap s <Plug>(easymotion-jumptoanywhere)
+let g:EasyMotion_re_anywhere = '\v' .
+    \       '(<.|^$)' . '|' .
+    \       '(\l)\zs(\u)'
 
 " Plugin 'ervandew/supertab'
 " let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
@@ -128,9 +133,9 @@ set foldmethod=indent
 set foldlevel=99
 
 
-"Some leader shortcuts
-nnoremap <Leader>l :lopen<cr>
-nnoremap <Leader>k :lclose<cr>
+"Some leader shortcuts for location list
+"nnoremap <Leader>l :lopen<cr>
+"nnoremap <Leader>k :lclose<cr>
 
 "Move around windows (splits) easier
 map <c-j> <c-w>j
