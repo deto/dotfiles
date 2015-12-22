@@ -11,3 +11,6 @@ set guioptions-=r "Enable right-hand scrollbar always
 set guioptions-=m "Remove menu bar
 set guioptions-=T "Remove toolbar
 
+
+"Disable bells
+set t_vb=

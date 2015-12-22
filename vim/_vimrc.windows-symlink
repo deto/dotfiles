@@ -212,3 +212,8 @@ set nowrap
 
 " Python Specific
 au FileType python setlocal formatprg=autopep8\ -
+
+" Get rid of bells
+set noeb
+set vb
+set t_vb=
