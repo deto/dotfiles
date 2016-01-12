@@ -32,6 +32,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree' 
 map <F2> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen = 1
 
 "Plugin 'davidhalter/jedi-vim'
 "let g:jedi#popup_on_dot = 0
