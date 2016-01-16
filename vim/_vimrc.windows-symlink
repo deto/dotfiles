@@ -156,10 +156,10 @@ set foldlevel=99
 "nnoremap <Leader>k :lclose<cr>
 
 "Move around windows (splits) easier
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-h> <c-w>h
-map <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 
 "map the <Esc> key to something easier
