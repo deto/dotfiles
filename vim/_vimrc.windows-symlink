@@ -217,3 +217,7 @@ au FileType python setlocal formatprg=autopep8\ -
 set noeb
 set vb
 set t_vb=
+
+" Don't lose selection when shifting text in visual mode
+xnoremap < <gv
+xnoremap > >gv
