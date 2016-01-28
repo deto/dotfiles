@@ -37,7 +37,12 @@ let NERDTreeQuitOnOpen = 1
 "Plugin 'davidhalter/jedi-vim'
 "let g:jedi#popup_on_dot = 0
 
+"Colorscheme plugins!
 Plugin 'sickill/vim-monokai'
+Plugin 'geetarista/ego.vim'
+Plugin 'antlypls/vim-colors-codeschool'
+Plugin 'tomasr/molokai'
+Plugin 'zeis/vim-kolor'
 
 Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
@@ -136,7 +141,7 @@ set background=dark
 if &term=="win32" "Silly Windows 16 colors
     color default
 else
-    colorscheme monokai
+    colorscheme molokai
 endif
 
 set tabstop=4
