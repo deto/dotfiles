@@ -230,6 +230,7 @@ nnoremap <silent> <C-P> :bp<CR>
 set nowrap
 
 " Python Specific
+" Use autopep8 for autocorrecting
 au FileType python setlocal formatprg=autopep8\ -
 
 " Get rid of bells
