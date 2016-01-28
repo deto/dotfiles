@@ -133,8 +133,9 @@ filetype plugin indent on
 syntax enable
 set background=dark
 
-if &term=="win32" "Silly Windows 16 colors
-    color default
+if &term=="win32"
+    set t_Co=16
+    colorscheme default
 else
     colorscheme monokai
 endif
