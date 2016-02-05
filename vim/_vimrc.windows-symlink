@@ -248,3 +248,6 @@ set t_vb=
 " Don't lose selection when shifting text in visual mode
 xnoremap < <gv
 xnoremap > >gv
+
+
+autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
