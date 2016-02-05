@@ -248,3 +248,9 @@ set t_vb=
 " Don't lose selection when shifting text in visual mode
 xnoremap < <gv
 xnoremap > >gv
+
+" No more annoying swap files everywhere
+set directory=~/.vim/swap
+
+" Options for Latex files
+autocmd FileType tex setlocal spell wrap

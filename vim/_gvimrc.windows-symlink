@@ -14,3 +14,6 @@ set guioptions-=T "Remove toolbar
 
 "Disable bells
 set t_vb=
+
+"Launch a qtconsole here!
+nnoremap <Leader>p :!start /B jupyter qtconsole<cr>
