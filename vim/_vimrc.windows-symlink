@@ -249,5 +249,10 @@ set t_vb=
 xnoremap < <gv
 xnoremap > >gv
 
+" No more annoying swap files everywhere
+set directory=~/.vim/swap
 
+" Options for Latex files
 autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
+autocmd FileType tex setlocal spell wrap
+
