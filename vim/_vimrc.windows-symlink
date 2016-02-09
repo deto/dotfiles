@@ -161,6 +161,7 @@ set mouse:a
 set foldmethod=indent
 set foldlevel=99
 
+set linebreak "Break lines (when on) on word
 
 "Some leader shortcuts for location list
 "nnoremap <Leader>l :lopen<cr>
@@ -256,4 +257,6 @@ xnoremap > >gv
 set directory=~/.vim/swap
 
 " Options for Latex files
+autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
 autocmd FileType tex setlocal spell wrap
+
