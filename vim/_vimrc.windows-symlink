@@ -90,12 +90,15 @@ let g:EasyMotion_re_anywhere = '\v' .
 
 " Plugin 'ervandew/supertab'
 " let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-nnoremap <Leader>d :YcmCompleter GetDoc<cr>
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" nnoremap <Leader>d :YcmCompleter GetDoc<cr>
 
 " IF YOU ARE HAVING TROUBLE WITH PYTHON COMPLETION EXTENSIONS
 " SEE HERE - http://stackoverflow.com/questions/9764341/runtime-error-with-vim-omnicompletion/10257098#10257098
+
+Plugin 'Shougo/neocomplete.vim'
+let g:neocomplete#enable_at_startup = 1
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
