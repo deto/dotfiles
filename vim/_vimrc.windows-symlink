@@ -44,7 +44,7 @@ Plugin 'antlypls/vim-colors-codeschool'
 Plugin 'tomasr/molokai'
 Plugin 'zeis/vim-kolor'
 
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2 "Need this or else airline online works after making a split
 let g:airline#extensions#whitespace#enabled = 0
@@ -72,6 +72,8 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+
+Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'simple'
 
 Plugin 'kien/ctrlp.vim'
