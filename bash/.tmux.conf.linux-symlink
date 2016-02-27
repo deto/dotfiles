@@ -1,15 +1,23 @@
+set-option -g history-limit 10000
 
 setw -g monitor-activity on
 set -g visual-activity on
 
 set -g status-justify centre 
 set -g default-terminal "screen-256color"
+set -g utf8 on
+setw -g utf8 on
 
+# Vim-like copy and paste
 setw -g mode-keys vi
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
 
+# Extra window resizing options
 bind < resize-pane -L 10
 bind > resize-pane -R 10
 bind - resize-pane -D 10
 bind + resize-pane -U 10
 
+# So we don't accidentally trigger pane-swap
 bind C-o select-pane -t :.+
