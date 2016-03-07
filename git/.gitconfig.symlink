@@ -4,6 +4,8 @@
 [core]
 	autocrlf = input
     editor = vim --noplugin
+[push]
+	default = simple
 [alias]
     # Many aliases from http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
     #
