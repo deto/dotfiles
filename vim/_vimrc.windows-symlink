@@ -146,7 +146,7 @@ if &term=="win32"
     set t_Co=16
     colorscheme default
 else
-    colorscheme molokai
+    colorscheme codeschool
 endif
 
 set tabstop=4
