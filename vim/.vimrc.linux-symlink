@@ -1,3 +1,6 @@
+"Change leader key to space
+let mapleader = "\<Space>"
+
 "Required for Vundle
 
 set nocompatible
@@ -37,9 +40,14 @@ let g:slime_python_ipython = 1
 "Plugin 'davidhalter/jedi-vim'
 "let g:jedi#popup_on_dot = 0
 
+"Colorscheme plugins!
 Plugin 'sickill/vim-monokai'
+Plugin 'geetarista/ego.vim'
+Plugin 'antlypls/vim-colors-codeschool'
+Plugin 'tomasr/molokai'
+Plugin 'zeis/vim-kolor'
 
-Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2 "Need this or else airline online works after making a split
 let g:airline#extensions#whitespace#enabled = 0
@@ -67,6 +75,8 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+
+Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'simple'
 
 
@@ -78,6 +88,11 @@ let g:ctrlp_custom_ignore = {
  \ 'file': '\v\.(pyc)$',
  \ }
 
+Plugin 'easymotion/vim-easymotion'
+nmap s <Plug>(easymotion-jumptoanywhere)
+let g:EasyMotion_re_anywhere = '\v' .
+    \       '(<.|^$)' . '|' .
+    \       '(\l)\zs(\u)'
 
 Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
@@ -96,6 +111,23 @@ let g:syntastic_check_on_wq = 0
 
 Plugin 'wellle/targets.vim'
 
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" For Python, Numpy style documentation
+let g:ultisnips_python_style="numpy"
+
 "End of Vundle plugins
 
 call vundle#end()
@@ -104,11 +136,9 @@ filetype plugin indent on
 "End of Vundle Section
 
 
-nmap <leader>l :set list!<CR>
-
 syntax enable
 set background=dark
-colorscheme monokai
+colorscheme molokai
 
 set tabstop=4
 set expandtab
@@ -121,14 +151,13 @@ set mouse:a
 set foldmethod=indent
 set foldlevel=99
 
-"Change leader key to space
-let mapleader = "\<Space>"
+set linebreak "Break lines (when on) on word
 
 "Move around windows (splits) easier
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-h> <c-w>h
-map <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 
 "map the <Esc> key to something easier
@@ -168,6 +197,9 @@ set matchpairs+=<:>
 "Normal backspace
 set backspace=indent,eol,start
 
+"Correct fonts for powerline/airline
+set encoding=utf-8
+
 "Use the system clipboard by default
 set clipboard=unnamed
 
@@ -190,3 +222,27 @@ nnoremap <silent> <C-Down> :resize -1<CR>
 " Switch buffers easier
 nnoremap <silent> <C-N> :bn<CR>
 nnoremap <silent> <C-P> :bp<CR>
+
+" Don't wrap text lines (feels like I set this too much myself)
+set nowrap
+
+" Python Specific
+" Use autopep8 for autocorrecting
+au FileType python setlocal formatprg=autopep8\ -
+
+" Get rid of bells
+set noeb
+set vb
+set t_vb=
+
+" Don't lose selection when shifting text in visual mode
+xnoremap < <gv
+xnoremap > >gv
+
+" No more annoying swap files everywhere
+set directory=~/.vim/swap
+
+" Options for Latex files
+autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
+autocmd FileType tex setlocal spell wrap
+
