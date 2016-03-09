@@ -1,4 +1,6 @@
-set guifont=Inconsolata-g_for_Powerline:h10:cANSI
+"set guifont=Inconsolata-g_for_Powerline:h10:cANSI
+set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+
 
 "Fix GVIM window resizing when making a vertical split
 "When you create a vertical split, a left-handed scrollbar is added.  This
