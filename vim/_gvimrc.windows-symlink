@@ -6,8 +6,8 @@ set guifont=Inconsolata-g_for_Powerline:h10:cANSI
 "snapped
 set guioptions-=L "Don't add left-hand scrollbar on split 
 set guioptions-=R "Dont' add right-hand scrollbar on split
-set guioptions-=l "Enable Left-hand scrollbar always
-set guioptions-=r "Enable right-hand scrollbar always
+set guioptions-=l "Disable Left-hand scrollbar always
+set guioptions-=r "Disable right-hand scrollbar always
 set guioptions-=m "Remove menu bar
 set guioptions-=T "Remove toolbar
 
