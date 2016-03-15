@@ -201,7 +201,7 @@ set incsearch
 "Relative line numbers for easier jumping
 set relativenumber 
 
-set timeoutlen=200
+set timeoutlen=500
 
 "When making a new split, set focus to that split
 set splitbelow
