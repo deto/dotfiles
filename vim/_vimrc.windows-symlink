@@ -43,6 +43,7 @@ Plugin 'geetarista/ego.vim'
 Plugin 'antlypls/vim-colors-codeschool'
 Plugin 'tomasr/molokai'
 Plugin 'zeis/vim-kolor'
+Plugin 'chriskempson/base16-vim'
 
 Plugin 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
@@ -150,7 +151,7 @@ set background=dark
 
 if &term=="win32"
     set t_Co=16
-    colorscheme default
+    colorscheme base16-default
 else
     colorscheme molokai
 endif
