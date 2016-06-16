@@ -6,8 +6,15 @@ let mapleader = "\<Space>"
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
+
+if domainname  == "millennium.berkeley.edu"
+    set rtp+=/data/yosef/users/david.detomaso/.vim/bundle/Vundle.vim
+    call vundle#begin("/data/yosef/users/david.detomaso/.vim/bundle")
+else
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+endif
  
 Plugin 'gmarik/Vundle.vim'
 
