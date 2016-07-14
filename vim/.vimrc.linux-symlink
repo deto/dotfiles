@@ -6,32 +6,39 @@ let mapleader = "\<Space>"
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
 
+if domainname  == "millennium.berkeley.edu"
+    set rtp+=/data/yosef/users/david.detomaso/.vim/bundle/Vundle.vim
+    call vundle#begin("/data/yosef/users/david.detomaso/.vim/bundle")
+else
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+endif
+ 
 Plugin 'gmarik/Vundle.vim'
 
 "End of Required
 "Vundle Plugins go Here
-
-" The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-
-Plugin 'scrooloose/nerdtree' 
-map <F2> :NERDTreeToggle<CR>
+ 
+" " The following are examples of different formats supported.
+" " " Keep Plugin commands between vundle#begin/end.
+" " " plugin on GitHub repo
+" " Plugin 'tpope/vim-fugitive'
+" " " plugin from http://vim-scripts.org/vim/scripts.html
+" " Plugin 'L9'
+" " " Git plugin not hosted on GitHub
+" " Plugin 'git://git.wincent.com/command-t.git'
+" " " git repos on your local machine (i.e. when working on your own plugin)
+" " Plugin 'file:///home/gmarik/path/to/plugin'
+" " " The sparkup vim script is in a subdirectory of this repo called vim.
+" " " Pass the path to set the runtimepath properly.
+" " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" " " Avoid a name conflict with L9
+" " Plugin 'user/L9', {'name': 'newL9'}
+" 
+" Plugin 'scrooloose/nerdtree' 
+" map <F2> :NERDTreeToggle<CR>
 
 Plugin 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
@@ -47,37 +54,44 @@ Plugin 'antlypls/vim-colors-codeschool'
 Plugin 'tomasr/molokai'
 Plugin 'zeis/vim-kolor'
 
-Bundle 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2 "Need this or else airline online works after making a split
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#estension#branch#enabled = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" new vim-powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-" old vim-powerline symbols
-" let g:airline_left_sep = '⮀'
-" let g:airline_left_alt_sep = '⮁'
-" let g:airline_right_sep = '⮂'
-" let g:airline_right_alt_sep = '⮃'
-" let g:airline_symbols.branch = '⭠'
-" let g:airline_symbols.readonly = '⭤'
-" let g:airline_symbols.linenr = '⭡'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
+" Bundle 'vim-airline/vim-airline'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#estension#branch#enabled = 1
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
+" " new vim-powerline symbols
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
+" " old vim-powerline symbols
+" " let g:airline_left_sep = '⮀'
+" " let g:airline_left_alt_sep = '⮁'
+" " let g:airline_right_sep = '⮂'
+" " let g:airline_right_alt_sep = '⮃'
+" " let g:airline_symbols.branch = '⭠'
+" " let g:airline_symbols.readonly = '⭤'
+" " let g:airline_symbols.linenr = '⭡'
+" let g:airline#extensions#tabline#left_sep = ''
+" let g:airline#extensions#tabline#left_alt_sep = ''
+" let g:airline#extensions#tabline#right_sep = ''
+" let g:airline#extensions#tabline#right_alt_sep = ''
+" 
+" Plugin 'vim-airline/vim-airline-themes'
+" let g:airline_theme = 'simple'
+"
 
-Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'simple'
+Plugin 'itchyny/lightline.vim'
+let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'separator': { 'left': '', 'right': ''},
+            \ 'subseparator': { 'left': '', 'right': ''},
+            \ }
 
 
 Plugin 'kien/ctrlp.vim'
@@ -99,34 +113,34 @@ let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
 
 Plugin 'tpope/vim-fugitive'
 
-Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 Plugin 'wellle/targets.vim'
 
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-l>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" For Python, Numpy style documentation
-let g:ultisnips_python_style="numpy"
+" Plugin 'scrooloose/syntastic'
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" 
+" " Track the engine.
+" Plugin 'SirVer/ultisnips'
+" 
+" " Snippets are separated from the engine. Add this if you want them:
+" Plugin 'honza/vim-snippets'
+" 
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsJumpForwardTrigger="<c-k>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+" 
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+" 
+" " For Python, Numpy style documentation
+" let g:ultisnips_python_style="numpy"
 
 "End of Vundle plugins
 
@@ -152,6 +166,7 @@ set foldmethod=indent
 set foldlevel=99
 
 set linebreak "Break lines (when on) on word
+set laststatus=2 "Need this or else airline online works after making a split
 
 "Move around windows (splits) easier
 nnoremap <c-j> <c-w>j
