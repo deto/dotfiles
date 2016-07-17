@@ -2,7 +2,7 @@
 	name = David DeTomaso
 	email = davedeto@gmail.com
 [core]
-	autocrlf = input
+	autocrlf = true
     editor = vim --noplugin
 [push]
 	default = current
