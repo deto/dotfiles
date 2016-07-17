@@ -1,0 +1,11 @@
+{
+  "NotebookApp": {
+    "extra_template_paths": [
+      "C:\\Users\\David\\AppData\\Roaming\\jupyter\\templates"
+    ],
+    "server_extensions": [
+      "nbextensions"
+    ]
+  },
+  "version": 1
+}
