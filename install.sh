@@ -29,3 +29,20 @@ fi
 if [ ! -d ~/.vim/bundle ]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
+
+# Setup for neovim
+if [ ! -d ~/.config ]; then
+    mkdir ~/.config
+fi
+
+if [ ! -d ~/.config/nvim ]; then
+    mkdir ~/.config/nvim
+fi
+
+if [ ! -d ~/.config/nvim/autoload/plug.vim ]; then
+    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+ln -s $(pwd)/vim/init.vim ~/.config/nvim/init.vim
+ln -s $(pwd)/vim/ginit.vim ~/.config/nvim/ginit.vim
