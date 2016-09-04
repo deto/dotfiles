@@ -72,7 +72,6 @@ nnoremap <c-l> <c-w>l
 
 "map the <Esc> key to something easier
 imap jk <ESC>
-vmap jk <ESC>
 
 "Abandoned buffers are hidden
 set hid
