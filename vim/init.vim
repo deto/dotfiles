@@ -1,5 +1,5 @@
 " Python3 support
-let g:python3_host_prog = 'C:\Anaconda\envs\py3\python.exe'
+" let g:python3_host_prog = 'C:\Anaconda\envs\py3\python.exe'
 
 " Vim Plug
 call plug#begin()
@@ -20,6 +20,10 @@ Plug 'tomasr/molokai'
 Plug 'zeis/vim-kolor'
 Plug 'chriskempson/base16-vim'
 
+"Terminal Colorschemes
+Plug 'scwood/vim-hybrid'
+Plug 'gummesson/stereokai.vim'
+
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -38,6 +42,8 @@ let g:deoplete#enable_at_startup = 1
 
 Plug 'zchee/deoplete-jedi'
 
+" use tab-complete for deoplete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 call plug#end()
 
@@ -45,7 +51,7 @@ call plug#end()
 let mapleader = "\<Space>"
 
 set background=dark
-colorscheme codeschool
+colorscheme molokai
 
 
 set tabstop=4
