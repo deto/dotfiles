@@ -34,3 +34,7 @@ xnoremap c "xc
 " Switch buffers easier
 nnoremap <silent> <C-N> :action NextTab<CR>
 nnoremap <silent> <C-P> :action PreviousTab<CR>
+
+" Don't lose selection when shifting text in visual mode
+xnoremap < <gv
+xnoremap > >gv

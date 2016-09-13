@@ -1,0 +1,9 @@
+function linuxpath()
+{
+  echo $1 | sed 's*\([A-Za-z]\):*/mnt/\L\1*g' | sed 's*\\*/*g'
+}
+
+function fix_dbus()
+{
+sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
+}
