@@ -21,24 +21,24 @@ Plugin 'gmarik/Vundle.vim'
 "End of Required
 "Vundle Plugins go Here
  
-" " The following are examples of different formats supported.
-" " " Keep Plugin commands between vundle#begin/end.
-" " " plugin on GitHub repo
-" " Plugin 'tpope/vim-fugitive'
-" " " plugin from http://vim-scripts.org/vim/scripts.html
-" " Plugin 'L9'
-" " " Git plugin not hosted on GitHub
-" " Plugin 'git://git.wincent.com/command-t.git'
-" " " git repos on your local machine (i.e. when working on your own plugin)
-" " Plugin 'file:///home/gmarik/path/to/plugin'
-" " " The sparkup vim script is in a subdirectory of this repo called vim.
-" " " Pass the path to set the runtimepath properly.
-" " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " " Avoid a name conflict with L9
-" " Plugin 'user/L9', {'name': 'newL9'}
+" The following are examples of different formats supported.
+" " Keep Plugin commands between vundle#begin/end.
+" " plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" " plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" " Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" " git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" " The sparkup vim script is in a subdirectory of this repo called vim.
+" " Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" " Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
 " 
-" Plugin 'scrooloose/nerdtree' 
-" map <F2> :NERDTreeToggle<CR>
+Plugin 'scrooloose/nerdtree' 
+map <F2> :NERDTreeToggle<CR>
 
 Plugin 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
@@ -53,6 +53,7 @@ Plugin 'geetarista/ego.vim'
 Plugin 'antlypls/vim-colors-codeschool'
 Plugin 'tomasr/molokai'
 Plugin 'zeis/vim-kolor'
+Plugin 'chriskempson/base16-vim'
 
 " Bundle 'vim-airline/vim-airline'
 " let g:airline#extensions#tabline#enabled = 1
@@ -115,16 +116,23 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'wellle/targets.vim'
 
-" Plugin 'scrooloose/syntastic'
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" 
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+    \ "mode": "passive",
+    \ "active_filetypes": [],
+    \ "passive_filetypes": [] }
+
+let g:syntastic_python_checkers = ['flake8']
+map <Leader>s :SyntasticCheck<CR>
+
 " " Track the engine.
 " Plugin 'SirVer/ultisnips'
 " 
@@ -135,7 +143,7 @@ Plugin 'wellle/targets.vim'
 " let g:UltiSnipsExpandTrigger="<c-j>"
 " let g:UltiSnipsJumpForwardTrigger="<c-k>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-l>"
-" 
+"  
 " " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
 " 
