@@ -11,3 +11,5 @@ alias ll='ls -l'                              # long list
 # alias l='ls -CF'                              #
 
 alias tree='tree -C' #Automatically use color
+
+alias ssh='ssh -X' #Automatically enable X11 forwarding
