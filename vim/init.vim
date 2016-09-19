@@ -1,16 +1,19 @@
-" Python3 support
-" let g:python3_host_prog = 'C:\Anaconda\envs\py3\python.exe'
-
 " Vim Plug
-call plug#begin()
+let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
 
-" Needed for neovim-qt
-Plug 'equalsraf/neovim-gui-shim'
+if domainname  == "millennium.berkeley.edu"
+    call plug#begin("/data/yosef/users/david.detomaso/.nvim/plugged")
+else
+    call plug#begin()
+endif
 
-Plug 'scrooloose/nerdtree' 
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
 
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
 
 "Colorscheme plugins!
 Plug 'sickill/vim-monokai'
@@ -60,6 +63,13 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'simple'
 
+Plug 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+ \ 'dir': '\v[\/]\.(git|hg|svn)$',
+ \ 'file': '\v\.(pyc)$',
+ \ }
 
 " Syntax Checking
 Plug 'neomake/neomake'
@@ -73,10 +83,37 @@ endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 let g:deoplete#enable_at_startup = 1
 
-Plug 'zchee/deoplete-jedi'
-
 " use tab-complete for deoplete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Autocomplete for Python
+Plug 'zchee/deoplete-jedi'
+
+" Python Indenting
+Plug 'hynek/vim-python-pep8-indent'
+
+" Python text-objects
+Plug 'michaeljsmith/vim-indent-object'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" For Python, Numpy style documentation
+let g:ultisnips_python_style="numpy"
+
+" Better text targets
+Plug 'wellle/targets.vim'
 
 call plug#end()
 
