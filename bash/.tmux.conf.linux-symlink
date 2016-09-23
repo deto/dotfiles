@@ -29,3 +29,6 @@ setw -g status-fg "#bbbbbb"
 # Pane border
 set -g pane-border-fg "#222222"
 set -g pane-active-border-fg "#888888"
+
+# This removes the delay when using the escape key
+set -sg escape-time 0
