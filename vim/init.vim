@@ -1,53 +1,39 @@
-"Change leader key to space
-let mapleader = "\<Space>"
+" Vim Plug
+let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
 
-"Required for Vundle
+if domainname  == "millennium.berkeley.edu"
+    call plug#begin("/data/yosef/users/david.detomaso/.nvim/plugged")
+else
+    call plug#begin()
+endif
 
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
-
-"End of Required
-"Vundle Plugins go Here
-
-" The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-
-Plugin 'scrooloose/nerdtree' 
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
 
-"Plugin 'davidhalter/jedi-vim'
-"let g:jedi#popup_on_dot = 0
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
 
 "Colorscheme plugins!
-Plugin 'sickill/vim-monokai'
-Plugin 'geetarista/ego.vim'
-Plugin 'antlypls/vim-colors-codeschool'
-Plugin 'tomasr/molokai'
-Plugin 'zeis/vim-kolor'
-Plugin 'chriskempson/base16-vim'
+Plug 'sickill/vim-monokai'
+Plug 'geetarista/ego.vim'
+Plug 'antlypls/vim-colors-codeschool'
+Plug 'tomasr/molokai'
+Plug 'zeis/vim-kolor'
+Plug 'chriskempson/base16-vim'
 
-Plugin 'vim-airline/vim-airline'
+"Terminal Colorschemes
+Plug 'scwood/vim-hybrid'
+Plug 'gummesson/stereokai.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Status Line
+Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
-set laststatus=2 "Need this or else airline online works after making a split
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#estension#branch#enabled = 1
 if !exists('g:airline_symbols')
@@ -74,10 +60,10 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'simple'
 
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
@@ -85,47 +71,40 @@ let g:ctrlp_custom_ignore = {
  \ 'file': '\v\.(pyc)$',
  \ }
 
-Plugin 'easymotion/vim-easymotion'
-nmap s <Plug>(easymotion-jumptoanywhere)
-let g:EasyMotion_re_anywhere = '\v' .
-    \       '(<.|^$)' . '|' .
-    \       '(\l)\zs(\u)'
+" Syntax Checking
+Plug 'neomake/neomake'
+let g:neomake_python_enabled_makers = ['flake8']
+autocmd! BufWritePost * Neomake
 
-" Plugin 'ervandew/supertab'
-" let g:SuperTabDefaultCompletionType = "context" "Use Jedi-vim with supertab
+" Autocomplete
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+let g:deoplete#enable_at_startup = 1
 
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-nnoremap <Leader>d :YcmCompleter GetDoc<cr>
+" use tab-complete for deoplete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" IF YOU ARE HAVING TROUBLE WITH PYTHON COMPLETION EXTENSIONS
-" SEE HERE - http://stackoverflow.com/questions/9764341/runtime-error-with-vim-omnicompletion/10257098#10257098
+" Autocomplete for Python
+Plug 'zchee/deoplete-jedi'
 
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+" Python Indenting
+Plug 'hynek/vim-python-pep8-indent'
 
-Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_python_checkers = ['flake8']
+" Python text-objects
+Plug 'michaeljsmith/vim-indent-object'
 
 " Track the engine.
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -133,28 +112,17 @@ let g:UltiSnipsEditSplit="vertical"
 " For Python, Numpy style documentation
 let g:ultisnips_python_style="numpy"
 
-" Asynchronous Jobs!
-Plugin 'tpope/vim-dispatch'
+" Better text targets
+Plug 'wellle/targets.vim'
 
-Plugin 'wellle/targets.vim'
+call plug#end()
 
-"End of Vundle plugins
+"Change leader key to space
+let mapleader = "\<Space>"
 
-call vundle#end()
-filetype plugin indent on
-
-"End of Vundle Section
-
-
-syntax enable
 set background=dark
+colorscheme molokai
 
-if &term=="win32"
-    set t_Co=16
-    colorscheme base16-default
-else
-    colorscheme codeschool
-endif
 
 set tabstop=4
 set expandtab
@@ -162,7 +130,6 @@ set softtabstop=4
 set shiftwidth=4
 set showmatch
 set number
-set mouse:a
 
 set foldmethod=indent
 set foldlevel=99
@@ -179,10 +146,8 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-
 "map the <Esc> key to something easier
 imap jk <ESC>
-vmap jk <ESC>
 
 "Abandoned buffers are hidden
 set hid
@@ -192,12 +157,6 @@ set ignorecase
 
 "When searching, try to be smart about cases
 set smartcase
-
-"Highlight search results
-set hlsearch
-
-"Make search act like search in modern browsers (?)
-set incsearch
 
 "Relative line numbers for easier jumping
 set relativenumber 
@@ -213,9 +172,6 @@ set scrolloff=5
 
 "Highlight angle brackets like other bracket types
 set matchpairs+=<:>
-
-"Normal Backspace
-set backspace=indent,eol,start
 
 "Correct fonts for powerline/airline
 set encoding=utf-8
@@ -259,10 +215,5 @@ set t_vb=
 xnoremap < <gv
 xnoremap > >gv
 
-" No more annoying swap files everywhere
-set directory=~/.vim/swap
-
 " Options for Latex files
-autocmd FileType tex nnoremap <buffer> <Leader>l :Start! pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
 autocmd FileType tex setlocal spell wrap
-

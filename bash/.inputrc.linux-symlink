@@ -1,5 +1,15 @@
-set editing-mode vi
-set keymap vi-command
+#set editing-mode vi
+#set keymap vi-command
 set completion-ignore-case on
 set completion-map-case on
 set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set expand-tilde on
+set skip-completed-text on
+
+#This lets you use up and down arrows
+#  for incremental search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
