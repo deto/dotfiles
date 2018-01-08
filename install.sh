@@ -17,6 +17,15 @@ do
     eval ln -s $i $newfile
 done
 
+# Setup for vim swap files
+if [ ! -d ~/.vim ]; then
+    mkdir ~/.vim
+fi
+
+if [ ! -d ~/.vim/swap ]; then
+    mkdir ~/.vim/swap
+fi
+
 # Setup for neovim
 if [ ! -d ~/.config ]; then
     mkdir ~/.config
