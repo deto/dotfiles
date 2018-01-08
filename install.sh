@@ -17,19 +17,6 @@ do
     eval ln -s $i $newfile
 done
 
-# Some more setup for vim
-if [ ! -d ~/.vim ]; then
-    mkdir ~/.vim
-fi
-
-if [ ! -d ~/.vim/swap ]; then
-    mkdir ~/.vim/swap
-fi
-
-if [ ! -d ~/.vim/bundle ]; then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-
 # Setup for neovim
 if [ ! -d ~/.config ]; then
     mkdir ~/.config
