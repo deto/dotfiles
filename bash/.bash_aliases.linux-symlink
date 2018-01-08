@@ -19,3 +19,5 @@ alias nbstrip_jq="jq-linux64 --indent 1 \
     | .metadata = {\"language_info\": {\"name\": \"python\", \"pygments_lexer\": \"ipython3\"}} \
     | .cells[].metadata = {} \
     '"
+
+alias ssh='ssh -X' #Automatically enable X11 forwarding
