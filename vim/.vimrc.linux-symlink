@@ -1,8 +1,6 @@
 "Change leader key to space
 let mapleader = "\<Space>"
 
-"Required for Vundle
-
 set nocompatible
 filetype off
 
@@ -47,16 +45,13 @@ Plugin 'zeis/vim-kolor'
 Plugin 'chriskempson/base16-vim'
 
 
-"End of Vundle plugins
 
 call vundle#end()
 filetype plugin indent on
-
-"End of Vundle Section
+"End of Vundle plugins
 
 syntax enable
 set background=dark
-colorscheme molokai
 
 set tabstop=4
 set expandtab
@@ -163,4 +158,3 @@ set directory=~/.vim/swap
 " Options for Latex files
 autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
 autocmd FileType tex setlocal spell wrap
-

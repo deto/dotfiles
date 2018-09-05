@@ -4,6 +4,7 @@
 [core]
 	autocrlf = input
     editor = vim --noplugin
+	fileMode = false
 [push]
 	default = current
 [alias]

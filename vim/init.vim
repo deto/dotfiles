@@ -2,7 +2,9 @@
 let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
 
 if domainname  == "millennium.berkeley.edu"
-    call plug#begin("/data/yosef/users/david.detomaso/.nvim/plugged")
+    call plug#begin("/data/yosef2/users/david.detomaso/.nvim/plugged")
+    let g:python_host_prog = '/data/yosef2/users/david.detomaso/programs/anaconda3/envs/py2/bin/python'
+    let g:python3_host_prog = '/data/yosef2/users/david.detomaso/programs/anaconda3/bin/python'
 else
     call plug#begin()
 endif
@@ -28,8 +30,8 @@ Plug 'scwood/vim-hybrid'
 Plug 'gummesson/stereokai.vim'
 
 " Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"  Plug 'tpope/vim-fugitive'
+"  Plug 'airblade/vim-gitgutter'
 
 " Status Line
 Plug 'vim-airline/vim-airline'
@@ -72,22 +74,32 @@ let g:ctrlp_custom_ignore = {
  \ }
 
 " Syntax Checking
-Plug 'neomake/neomake'
-let g:neomake_python_enabled_makers = ['flake8']
-autocmd! BufWritePost * Neomake
+
+" Neomake
+" Plug 'neomake/neomake'
+" let g:neomake_python_enabled_makers = ['flake8']
+" autocmd! BufWritePost * Neomake
+
+" ALE
+Plug 'w0rp/ale'
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'javascript': ['eslint'],
+\}
+let g:ale_r_lintr_options = 'lintr::with_defaults(absolute_paths_linter = NULL, camel_case_linter = NULL, snake_case_linter = NULL)'
 
 " Autocomplete
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-let g:deoplete#enable_at_startup = 1
+"  function! DoRemote(arg)
+"    UpdateRemotePlugins
+"  endfunction
+"  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+"  let g:deoplete#enable_at_startup = 1
 
 " use tab-complete for deoplete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Autocomplete for Python
-Plug 'zchee/deoplete-jedi'
+"  Plug 'zchee/deoplete-jedi'
 
 " Python Indenting
 Plug 'hynek/vim-python-pep8-indent'
@@ -95,22 +107,26 @@ Plug 'hynek/vim-python-pep8-indent'
 " Python text-objects
 Plug 'michaeljsmith/vim-indent-object'
 
-" Track the engine.
-Plug 'SirVer/ultisnips'
+" Good searching of files with Ack/Ag
+Plug 'mileszs/ack.vim'
+let g:ackprg = 'ag --vimgrep'
 
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" For Python, Numpy style documentation
-let g:ultisnips_python_style="numpy"
+" " Track the engine.
+" Plug 'SirVer/ultisnips'
+" 
+" " Snippets are separated from the engine. Add this if you want them:
+" Plug 'honza/vim-snippets'
+" 
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" 
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+" 
+" " For Python, Numpy style documentation
+" let g:ultisnips_python_style="numpy"
 
 " Better text targets
 Plug 'wellle/targets.vim'
@@ -159,7 +175,7 @@ set ignorecase
 set smartcase
 
 "Relative line numbers for easier jumping
-set relativenumber 
+"set relativenumber 
 
 set timeoutlen=500
 
@@ -219,3 +235,14 @@ xnoremap > >gv
 autocmd FileType tex setlocal spell wrap
 
 set breakindent
+
+" Quickfix mappings (from tpope/vim-unimpaired)
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]Q :clast<CR>
+nnoremap [Q :cfirst<CR>
+
+nnoremap ]l :lnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]L :llast<CR>
+nnoremap [L :lfirst<CR>

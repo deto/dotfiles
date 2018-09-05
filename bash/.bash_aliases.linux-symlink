@@ -12,4 +12,12 @@ alias ll='ls -l'                              # long list
 
 alias tree='tree -C' #Automatically use color
 
+# This is used to strip outputs/metadata out of jupyter notebook files
+alias nbstrip_jq="jq-linux64 --indent 1 \
+    '(.cells[] | select(has(\"outputs\")) | .outputs) = []  \
+    | (.cells[] | select(has(\"execution_count\")) | .execution_count) = null  \
+    | .metadata = {\"language_info\": {\"name\": \"python\", \"pygments_lexer\": \"ipython3\"}} \
+    | .cells[].metadata = {} \
+    '"
+
 alias ssh='ssh -X' #Automatically enable X11 forwarding

@@ -14,10 +14,10 @@ bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
 
 # Extra window resizing options
-bind < resize-pane -L 10
-bind > resize-pane -R 10
-bind - resize-pane -D 10
-bind + resize-pane -U 10
+# bind < resize-pane -L 10
+# bind > resize-pane -R 10
+# bind - resize-pane -D 10
+# bind + resize-pane -U 10
 
 # So we don't accidentally trigger pane-swap
 bind C-o select-pane -t :.+
@@ -30,5 +30,15 @@ setw -g status-fg "#bbbbbb"
 set -g pane-border-fg "#222222"
 set -g pane-active-border-fg "#888888"
 
-# This removes the delay when using the escape key
-set -sg escape-time 0
+# Version-specific commands [grumble, grumble]
+# See: https://github.com/tmux/tmux/blob/master/CHANGES
+run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 6-)"
+
+# Makes sure that new splits/windows open at same path
+if-shell '[ "$(echo "$TMUX_VERSION >= 2.1" | bc)" = 1 ]' \
+     "bind '\"' split-window -v -c '#{pane_current_path}'; \
+      bind % split-window -h -c '#{pane_current_path}'; \
+      bind c new-window -c '#{pane_current_path}'"
+
+# Fix slow ESC behavior in vim/nvim
+set -sg escape-time 10
