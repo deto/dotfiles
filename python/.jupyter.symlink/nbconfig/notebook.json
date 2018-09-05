@@ -1,8 +1,0 @@
-{
-  "load_extensions": {
-    "usability/limit_output/main": true, 
-    "usability/scratchpad/main": true, 
-    "vim_binding/vim_binding": true, 
-    "usability/qtconsole/qtconsole": true
-  }
-}

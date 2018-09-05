@@ -27,91 +27,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'scwood/vim-hybrid'
 Plug 'gummesson/stereokai.vim'
 
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-" Status Line
-Plug 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#estension#branch#enabled = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" new vim-powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-" old vim-powerline symbols
-" let g:airline_left_sep = '⮀'
-" let g:airline_left_alt_sep = '⮁'
-" let g:airline_right_sep = '⮂'
-" let g:airline_right_alt_sep = '⮃'
-" let g:airline_symbols.branch = '⭠'
-" let g:airline_symbols.readonly = '⭤'
-" let g:airline_symbols.linenr = '⭡'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
-
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'simple'
-
-Plug 'kien/ctrlp.vim'
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
- \ 'dir': '\v[\/]\.(git|hg|svn)$',
- \ 'file': '\v\.(pyc)$',
- \ }
-
-" Syntax Checking
-Plug 'neomake/neomake'
-let g:neomake_python_enabled_makers = ['flake8']
-autocmd! BufWritePost * Neomake
-
-" Autocomplete
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-let g:deoplete#enable_at_startup = 1
-
-" use tab-complete for deoplete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Autocomplete for Python
-Plug 'zchee/deoplete-jedi'
-
-" Python Indenting
-Plug 'hynek/vim-python-pep8-indent'
-
-" Python text-objects
-Plug 'michaeljsmith/vim-indent-object'
-
-" Track the engine.
-Plug 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" For Python, Numpy style documentation
-let g:ultisnips_python_style="numpy"
-
 " Better text targets
 Plug 'wellle/targets.vim'
 
@@ -217,5 +132,3 @@ xnoremap > >gv
 
 " Options for Latex files
 autocmd FileType tex setlocal spell wrap
-
-set breakindent
