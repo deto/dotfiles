@@ -244,3 +244,6 @@ nnoremap ]l :lnext<CR>
 nnoremap [l :lprevious<CR>
 nnoremap ]L :llast<CR>
 nnoremap [L :lfirst<CR>
+
+" Better indenting for R (built-in Vim option)
+let r_indent_align_args = 0
