@@ -1,57 +1,43 @@
-"Change leader key to space
-let mapleader = "\<Space>"
-
-set nocompatible
-filetype off
-
+" Vim Plug
 let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
 
 if domainname  == "millennium.berkeley.edu"
-    set rtp+=/data/yosef/users/david.detomaso/.vim/bundle/Vundle.vim
-    call vundle#begin("/data/yosef/users/david.detomaso/.vim/bundle")
+    call plug#begin("/data/yosef/users/david.detomaso/.nvim/plugged")
 else
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
+    call plug#begin()
 endif
- 
-Plugin 'gmarik/Vundle.vim'
 
-"End of Required
-"Vundle Plugins go Here
- 
-" The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-" 
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+map <F2> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen = 1
+
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
 
 "Colorscheme plugins!
-Plugin 'sickill/vim-monokai'
-Plugin 'geetarista/ego.vim'
-Plugin 'antlypls/vim-colors-codeschool'
-Plugin 'tomasr/molokai'
-Plugin 'zeis/vim-kolor'
-Plugin 'chriskempson/base16-vim'
+Plug 'sickill/vim-monokai'
+Plug 'geetarista/ego.vim'
+Plug 'antlypls/vim-colors-codeschool'
+Plug 'tomasr/molokai'
+Plug 'zeis/vim-kolor'
+Plug 'chriskempson/base16-vim'
 
+"Terminal Colorschemes
+Plug 'scwood/vim-hybrid'
+Plug 'gummesson/stereokai.vim'
 
+" Better text targets
+Plug 'wellle/targets.vim'
 
-call vundle#end()
-filetype plugin indent on
-"End of Vundle plugins
+call plug#end()
 
-syntax enable
+"Change leader key to space
+let mapleader = "\<Space>"
+
 set background=dark
+colorscheme molokai
+
 
 set tabstop=4
 set expandtab
@@ -59,20 +45,21 @@ set softtabstop=4
 set shiftwidth=4
 set showmatch
 set number
-set mouse:a
 
 set foldmethod=indent
 set foldlevel=99
 
 set linebreak "Break lines (when on) on word
-set laststatus=2 "Need this or else airline online works after making a split
+
+"Some leader shortcuts for location list
+"nnoremap <Leader>l :lopen<cr>
+"nnoremap <Leader>k :lclose<cr>
 
 "Move around windows (splits) easier
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-
 
 "map the <Esc> key to something easier
 imap jk <ESC>
@@ -86,16 +73,10 @@ set ignorecase
 "When searching, try to be smart about cases
 set smartcase
 
-"Highlight search results
-set hlsearch
-
-"Make search act like search in modern browsers (?)
-set incsearch
-
 "Relative line numbers for easier jumping
 set relativenumber 
 
-set timeoutlen=200
+set timeoutlen=500
 
 "When making a new split, set focus to that split
 set splitbelow
@@ -106,9 +87,6 @@ set scrolloff=5
 
 "Highlight angle brackets like other bracket types
 set matchpairs+=<:>
-
-"Normal backspace
-set backspace=indent,eol,start
 
 "Correct fonts for powerline/airline
 set encoding=utf-8
@@ -152,9 +130,5 @@ set t_vb=
 xnoremap < <gv
 xnoremap > >gv
 
-" No more annoying swap files everywhere
-set directory=~/.vim/swap
-
 " Options for Latex files
-autocmd FileType tex nnoremap <buffer> <Leader>l :!pdflatex %:r & bibtex %:r & pdflatex %:r & pdflatex %:r<cr>
 autocmd FileType tex setlocal spell wrap
