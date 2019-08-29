@@ -42,3 +42,14 @@ if-shell '[ "$(echo "$TMUX_VERSION >= 2.1" | bc)" = 1 ]' \
 
 # Fix slow ESC behavior in vim/nvim
 set -sg escape-time 10
+
+# Removes the extra 'flag' next to windows
+set -g window-status-format " #I:#W "
+set -g window-status-current-format " #I:#W "
+
+# Make 'alert' windows just show in orange
+set -g window-status-activity-style bg="#222222",fg="#ffaabb"
+set -g window-status-bell-style bg="#222222",fg="#ffaabb"
+
+# Make current window highlighted with white on black
+set -g window-status-current-style bg="#bbbbbb",fg="#222222"
