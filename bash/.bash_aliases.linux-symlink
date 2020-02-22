@@ -21,3 +21,11 @@ alias nbstrip_jq="jq-linux64 --indent 1 \
     '"
 
 alias ssh='ssh -X' #Automatically enable X11 forwarding
+alias bigjob='qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=20 -l walltime=336:00:00 -l cput=9999:00:00 -V' # Submit a big job in current directory
+alias bigjob_noV='qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=20 -l walltime=336:00:00 -l cput=9999:00:00' # Submit a big job in current directory - but don't add the current environment
+alias medjob='qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=12 -l walltime=96:00:00 -l cput=999:00:00 -V' # Submit a medium job in current directory
+alias smalljob='qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=8 -l walltime=96:00:00 -l cput=999:00:00 -V' # Submit a smaller job in current directory
+
+alias clustersnake='snakemake -j 999 --cluster "qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=20 -V -l walltime=96:00:00 -l cput=999:00:00"'
+alias clustersnake-med='snakemake -j 999 --cluster "qsub -q yosef3 -d $(pwd) -l nodes=1:ppn=10 -V -l walltime=96:00:00 -l cput=999:00:00"'
+alias clustersnake-gpu='snakemake -j 999 --cluster "qsub -q gpu -d $(pwd) -l nodes=1:ppn=20 -V -l walltime=96:00:00 -l cput=999:00:00"'
