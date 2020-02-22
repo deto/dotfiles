@@ -221,6 +221,8 @@ xnoremap > >gv
 " Options for Latex files
 autocmd FileType tex setlocal spell wrap
 
+set breakindent
+
 " Quickfix mappings (from tpope/vim-unimpaired)
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprevious<CR>
