@@ -5,13 +5,22 @@ set -g visual-activity on
 
 set -g status-justify centre 
 set -g default-terminal "screen-256color"
-set -g utf8 on
-setw -g utf8 on
+# set -g utf8 on
+# setw -g utf8 on
 
 # Vim-like copy and paste
 setw -g mode-keys vi
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
+
+# Old-style bindings
+# bind-key -t vi-copy 'v' begin-selection
+# bind-key -t vi-copy 'y' copy-selection
+
+# New tmux 2.4+ bindings
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'V' send -X select-line
+bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
+# bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+bind-key -T copy-mode-vi 'y' send -X copy-selection
 
 # Extra window resizing options
 # bind < resize-pane -L 10
@@ -24,11 +33,14 @@ bind C-o select-pane -t :.+
 
 # Some colors!
 # Status bar
-setw -g status-bg "#222222"
-setw -g status-fg "#bbbbbb"
+setw -g status-style "bg=#222222,fg=#bbbbbb"
+
 # Pane border
-set -g pane-border-fg "#222222"
-set -g pane-active-border-fg "#888888"
+# set -g pane-border-fg "#222222"
+# set -g pane-active-border-fg "#888888"
+
+set -g pane-border-style "fg=#222222"
+set -g pane-active-border-style "fg=#bbbbbb"
 
 # Version-specific commands [grumble, grumble]
 # See: https://github.com/tmux/tmux/blob/master/CHANGES
