@@ -1,8 +1,0 @@
-IconDirectory "D:\Dropbox (Personal)\Programs\icons"
-
-Icons {
-"xterm" "xfce4-terminal.ico"
-"Terminal" "xfce4-terminal.ico"
-"Neovim" "neovim.ico"
-}
-
