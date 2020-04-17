@@ -1,12 +1,12 @@
 [user]
-	name = David DeTomaso
-	email = davedeto@gmail.com
+    name = David DeTomaso
+    email = davedeto@gmail.com
 [core]
-	autocrlf = input
-    editor = vim --noplugin
-	fileMode = false
+    autocrlf = input
+    editor = vim
+    fileMode = false
 [push]
-	default = current
+    default = current
 [alias]
     # Many aliases from http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
     #
@@ -23,14 +23,13 @@
     # Diff from last commit
     dlc = diff --cached HEAD^
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    required = true
 [gui]
 [merge]
-  tool = nvimdiff
+    tool = nvimdiff
 [mergetool]
-  prompt = false
+    prompt = false
 [mergetool "nvimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'

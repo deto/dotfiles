@@ -1,11 +1,8 @@
-" Vim Plug
-let domainname = tolower(substitute(system('hostname -d'), '\n', '', ''))
+"Change leader key to space
+let mapleader = "\<Space>"
 
-if domainname  == "millennium.berkeley.edu"
-    call plug#begin("/data/yosef/users/david.detomaso/.nvim/plugged")
-else
-    call plug#begin()
-endif
+" Vim Plug
+call plug#begin()
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 map <F2> :NERDTreeToggle<CR>
@@ -32,12 +29,8 @@ Plug 'wellle/targets.vim'
 
 call plug#end()
 
-"Change leader key to space
-let mapleader = "\<Space>"
-
 set background=dark
 colorscheme molokai
-
 
 set tabstop=4
 set expandtab
