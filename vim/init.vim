@@ -106,6 +106,8 @@ let g:ale_r_lintr_options = 'lintr::with_defaults(absolute_paths_linter = NULL, 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-python'}
 
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 
 set background=dark
