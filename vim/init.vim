@@ -80,7 +80,7 @@ nmap <Leader>f :GFiles<CR>
 nmap <Leader>F :Files<CR>
 nmap <Leader>t :Tags<CR>
 
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Python Indenting
 Plug 'hynek/vim-python-pep8-indent'
@@ -93,7 +93,8 @@ Plug 'mileszs/ack.vim'
 let g:ackprg = 'ag --vimgrep'
 
 " Better text targets
-Plug 'wellle/targets.vim'
+" Commenting this as it breaks macros :(
+" Plug 'wellle/targets.vim'
 
 
 " ALE
