@@ -230,149 +230,213 @@ nmap <Space><Space> hf=i<space><esc>la<space><esc>
 
 
 " New stuff for language servers
+" Good reference here: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
 lua << EOF
 
-    require'lspconfig'.pyright.setup{}
-    require'lspconfig'.r_language_server.setup{}
-
-
--- Setup nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-      end,
-    },
-    mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      -- Accept currently selected item. If none selected, `select` first item.
-      -- Set `select` to `false` to only confirm explicitly selected items.
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
-  }
-
-
-  local nvim_lsp = require('lspconfig')
-  -- Use an on_attach function to only map the following keys
-  -- after the language server attaches to the current buffer
-  local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    local opts = { noremap=true, silent=true }
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-  end
-
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  local servers = { 'pyright' }
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
+    local lsp_defaults = {
       flags = {
         debounce_text_changes = 150,
-      }
-    }
-  end
+      },
+      capabilities = require('cmp_nvim_lsp').update_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
+      ),
+      on_attach = function(client, bufnr)
+        vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
 
-  -- Config for nvim-treesitter
-  -- Just enable highlighting for now
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"python", "r"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-    ignore_install = { "javascript" }, -- List of parsers to ignore installing
-    highlight = {
-      enable = true,              -- false will disable the whole extension
-      disable = { "c", "rust" },  -- list of language that will be disabled
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
-    },
-  }
-
-  require('telescope').setup {
-    extensions = {
-      fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                         -- the default case_mode is "smart_case"
-      }
+        if client.resolved_capabilities.document_formatting == true then
+            -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+            -- Add this <leader> bound mapping so formatting the entire document is easier.
+            vim.keymap.set("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", {buffer = true})
+            vim.keymap.set("v", "gq", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", {buffer = true})
+        end
+      end
     }
-  }
-  -- To get fzf loaded and working with telescope, you need to call
-  -- load_extension, somewhere after setup function:
-  require('telescope').load_extension('fzf')
+
+    vim.lsp.set_log_level("debug")
+
+    local lspconfig = require('lspconfig')
+
+    -- This merges our lsp_defaults with the default lsp configs
+    lspconfig.util.default_config = vim.tbl_deep_extend(
+      'force',
+      lspconfig.util.default_config,
+      lsp_defaults
+    )
+
+    lspconfig.pyright.setup{}
+    lspconfig.r_language_server.setup{}
+
+    vim.opt.signcolumn = "yes" -- reserves space along left side for diag signs
+
+    -- Setup Keybindings, uses the autocommand group from lsp_defaults earlier
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'LspAttached',
+      desc = 'LSP actions',
+      callback = function()
+        local bufmap = function(mode, lhs, rhs)
+          local opts = {buffer = true}
+          vim.keymap.set(mode, lhs, rhs, opts)
+        end
+
+        -- Displays hover information about the symbol under the cursor
+        bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+
+        -- Jump to the definition
+        bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+
+        -- Jump to declaration
+        bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+
+        -- Lists all the implementations for the symbol under the cursor
+        bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+
+        -- Jumps to the definition of the type symbol
+        bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+
+        -- Lists all the references 
+        bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+
+        -- Displays a function's signature information
+        bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+
+        -- Renames all references to the symbol under the cursor
+        bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+
+        -- Selects a code action available at the current cursor position
+        bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+        bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
+
+        -- Show diagnostics in a floating window
+        bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+
+        -- Move to the previous diagnostic
+        bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+
+        -- Move to the next diagnostic
+        bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+
+        -- Other options, potentially useful?
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+        -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+        -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+        -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+        -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+      end
+    })
+
+    -- Setup nvim-cmp.
+
+    vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+    local cmp = require('cmp')
+
+    local select_opts = {behavior = cmp.SelectBehavior.Select}
+
+    cmp.setup({
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+          end,
+        },
+        sources = {
+          { name = 'path' },
+          { name = 'nvim_lsp', keyword_length = 3 },
+          { name = 'buffer', keyword_length = 3 },
+          { name = 'vsnip', keyword_length = 3 }, -- For vsnip users.
+          -- { name = 'luasnip' }, -- For luasnip users.
+          -- { name = 'ultisnips' }, -- For ultisnips users.
+          -- { name = 'snippy' }, -- For snippy users.
+        },
+        window = {
+            -- Create bordered documentation window
+            documentation = cmp.config.window.bordered()
+        },
+        formatting = {
+            fields = {'menu', 'abbr', 'kind'}
+            -- Also, see the blog post at the top of this section for
+            -- how to extend this section and assign icons based on
+            -- completetion source
+        },
+        mapping = {
+            ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+            ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+            ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+            ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+            ['<C-e>'] = cmp.mapping({
+              i = cmp.mapping.abort(),
+              c = cmp.mapping.close(),
+            }),
+            -- Accept currently selected item. If none selected, `select` first item.
+            -- Set `select` to `false` to only confirm explicitly selected items.
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+            -- If the completion menu is visible, move to the next item. If the line is
+            -- "empty", insert a Tab character. If the cursor is inside a word,
+            -- trigger the completion menu.
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                local col = vim.fn.col('.') - 1
+
+                if cmp.visible() then
+                    cmp.select_next_item(select_opts)
+                elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                    fallback()
+                else
+                    cmp.complete()
+                end
+            end, {'i', 's'}),
+        },
+    })
+
+    local sign = function(opts)
+      vim.fn.sign_define(opts.name, {
+        texthl = opts.name,
+        text = opts.text,
+        numhl = ''
+      })
+    end
+
+    sign({name = 'DiagnosticSignError', text = '✘'})
+    sign({name = 'DiagnosticSignWarn', text = '▲'})
+    sign({name = 'DiagnosticSignHint', text = '⚑'})
+    sign({name = 'DiagnosticSignInfo', text = ''})
+
+
+    -- Config for nvim-treesitter
+    -- Just enable highlighting for now
+    require'nvim-treesitter.configs'.setup {
+        ensure_installed = {"python", "r"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+        ignore_install = { "javascript" }, -- List of parsers to ignore installing
+        highlight = {
+            enable = true,                            -- false will disable the whole extension
+            disable = { "c", "rust" },    -- list of language that will be disabled
+            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+            -- Using this option may slow down your editor, and you may see some duplicate highlights.
+            -- Instead of true it can also be a list of languages
+            additional_vim_regex_highlighting = false,
+        },
+    }
+
+    require('telescope').setup {
+        extensions = {
+            fzf = {
+                fuzzy = true,                                        -- false will only do exact matching
+                override_generic_sorter = true,    -- override the generic sorter
+                override_file_sorter = true,         -- override the file sorter
+                case_mode = "smart_case",                -- or "ignore_case" or "respect_case"
+                                                                                 -- the default case_mode is "smart_case"
+            }
+        }
+    }
+    -- To get fzf loaded and working with telescope, you need to call
+    -- load_extension, somewhere after setup function:
+    require('telescope').load_extension('fzf')
 
 EOF
