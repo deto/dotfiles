@@ -74,11 +74,12 @@ let g:ctrlp_custom_ignore = {
  \ 'file': '\v\.(pyc)$',
  \ }
 
-Plug '/data/yosef2/users/david.detomaso/repos/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 nmap <Leader>f :GFiles<CR>
 nmap <Leader>F :Files<CR>
 nmap <Leader>t :Tags<CR>
+nmap <Leader>b :Buffers<CR>
 
 " Plug 'ludovicchabant/vim-gutentags'
 
@@ -102,8 +103,9 @@ Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['flake8'],
 \   'javascript': ['eslint'],
+\   'r': ['lintr'],
 \}
-let g:ale_r_lintr_options = 'lintr::with_defaults(absolute_paths_linter = NULL, camel_case_linter = NULL, snake_case_linter = NULL, closed_curly_linter = NULL)'
+let g:ale_r_lintr_options = 'lintr::with_defaults(absolute_path_linter = NULL, camel_case_linter = NULL, closed_curly_linter = NULL, object_name_linter = NULL)'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-python'}
 
