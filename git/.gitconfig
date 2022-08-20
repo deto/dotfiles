@@ -19,13 +19,14 @@
     filelog = log -u
     fl = log -u
     # Log with tree shown
-    logtree = log --graph --oneline --decorate --all
+    logtree = log --graph --oneline --decorate
     # Diff from last commit
     dlc = diff --cached HEAD^
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     required = true
+	process = git-lfs filter-process
 [gui]
 [merge]
     tool = nvimdiff
