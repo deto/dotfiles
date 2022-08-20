@@ -32,10 +32,6 @@ let g:lightline = {
             \ 'subseparator': { 'left': '', 'right': ''},
             \}
 
-" Plug 'junegunn/fzf.vim'
-" nmap <Leader>f :GFiles<CR>
-" nmap <Leader>F :Files<CR>
-" nmap <Leader>t :Tags<CR>
 
 " Python Indenting
 Plug 'hynek/vim-python-pep8-indent'
@@ -77,6 +73,8 @@ Plug 'hrsh7th/vim-vsnip'
 
 " Tresitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 

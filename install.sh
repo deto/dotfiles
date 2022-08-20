@@ -24,6 +24,9 @@ ln -sf $ROOT/git/.gitconfig ~
 ln -sf $ROOT/python/.flake8 ~
 ln -sf $ROOT/python/.pep8 ~
 
+mkdir -p ~/.jupyter/custom
+ln -sf $ROOT/python/jupyter_custom.js ~/.jupyter/custom/custom.js
+
 mkdir -p ~/.config/matplotlib
 ln -sf $ROOT/python/matplotlibrc ~/.config/matplotlib
 
