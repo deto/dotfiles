@@ -1,4 +1,6 @@
 [flake8]
-ignore = E703,E701,E241,E128
+ignore = W503,E226
 max-line-length = 110 
 max-complexity = 10
+builtins =
+    snakemake

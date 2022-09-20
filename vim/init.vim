@@ -247,7 +247,7 @@ lua << EOF
             -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
             -- Add this <leader> bound mapping so formatting the entire document is easier.
             vim.keymap.set("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", {buffer = true})
-            vim.keymap.set("v", "gq", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", {buffer = true})
+            vim.keymap.set("v", "gq", "<ESC><cmd>lua vim.lsp.buf.range_formatting()<CR>", {buffer = true})
         end
       end
     }
@@ -263,8 +263,26 @@ lua << EOF
       lsp_defaults
     )
 
-    lspconfig.pyright.setup{}
-    lspconfig.r_language_server.setup{}
+    -- options are here: https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+    -- Can maybe use both pylsp and pyright?  https://www.reddit.com/r/neovim/comments/sazbw6/python_language_servers/
+    lspconfig.pylsp.setup{
+        settings = {
+            pylsp = {
+                plugins = {
+                    flake8 = {
+                        enabled = true,
+                    },
+                    pycodestyle = {
+                        enabled = false,
+                    },
+                    pyflakes = {
+                        enabled = false,
+                    },
+                }
+            }
+        }
+    }  -- requires `pip install python-language-server`
+    lspconfig.r_language_server.setup{} -- requires `install.packages('languageserver')`
 
     vim.opt.signcolumn = "yes" -- reserves space along left side for diag signs
 
@@ -297,7 +315,7 @@ lua << EOF
         bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 
         -- Displays a function's signature information
-        bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+        bufmap('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
 
         -- Renames all references to the symbol under the cursor
         bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
