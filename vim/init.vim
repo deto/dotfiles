@@ -30,6 +30,7 @@ let g:lightline = {
             \ 'colorscheme': 'jellybeans',
             \ 'separator': { 'left': '', 'right': ''},
             \ 'subseparator': { 'left': '', 'right': ''},
+            \ 'enable': { 'statusline': '1', 'tabline': '0'},
             \}
 
 
@@ -52,7 +53,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main
 "
 " Telescope key bindings
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fg <cmd>Telescope git_files<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
@@ -76,11 +77,21 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'christoomey/vim-tmux-navigator'
 
+" Bufferline!
+
+Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+
+" New Tree view
+Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
+
 call plug#end()
 
 set background=dark
 colorscheme vim-monokai-tasty
 
+set mouse=a
 
 set tabstop=4
 set expandtab
@@ -232,6 +243,11 @@ nmap <Space><Space> hf=i<space><esc>la<space><esc>
 " New stuff for language servers
 " Good reference here: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
 lua << EOF
+
+
+    -- This is recommended by nvim-tree to disable netrw
+    vim.g.loaded = 1
+    vim.g.loaded_netrwPlugin = 1
 
     local lsp_defaults = {
       flags = {
@@ -456,5 +472,27 @@ lua << EOF
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
     require('telescope').load_extension('fzf')
+
+    -- Init for bufferline
+    vim.opt.termguicolors = true
+    require("bufferline").setup{
+        options = {
+            show_close_icon = false,
+            separator_style = "slant",
+            offsets = {
+                {
+                filetype = "NvimTree",
+                text = "File Explorer",
+                text_align = "center",
+                separator = false
+                },
+            }
+        }
+    }
+
+    -- Config for tree view
+
+    require("nvim-tree").setup()
+    vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 EOF
