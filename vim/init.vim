@@ -84,7 +84,7 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 " New Tree view
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
+Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
 
 call plug#end()
 
@@ -253,17 +253,17 @@ lua << EOF
       flags = {
         debounce_text_changes = 150,
       },
-      capabilities = require('cmp_nvim_lsp').update_capabilities(
+      capabilities = require('cmp_nvim_lsp').default_capabilities(
         vim.lsp.protocol.make_client_capabilities()
       ),
       on_attach = function(client, bufnr)
         vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
 
-        if client.resolved_capabilities.document_formatting == true then
+        if client.server_capabilities.documentFormattingProvider == true then
             -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
             -- Add this <leader> bound mapping so formatting the entire document is easier.
-            vim.keymap.set("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", {buffer = true})
-            vim.keymap.set("v", "gq", "<ESC><cmd>lua vim.lsp.buf.range_formatting()<CR>", {buffer = true})
+            vim.keymap.set("n", "<leader>gq", vim.lsp.buf.format, {buffer = true})
+            vim.keymap.set("v", "gq", vim.lsp.buf.format, {buffer = true})
         end
       end
     }
@@ -444,7 +444,7 @@ lua << EOF
     -- Config for nvim-treesitter
     -- Just enable highlighting for now
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = {"python", "r"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = {"python", "r", "vim", "lua"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
