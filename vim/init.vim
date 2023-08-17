@@ -287,6 +287,7 @@ lua << EOF
                 plugins = {
                     flake8 = {
                         enabled = true,
+                        config = '~/.flake8',
                     },
                     pycodestyle = {
                         enabled = false,

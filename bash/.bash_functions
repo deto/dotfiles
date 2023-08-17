@@ -1,5 +1,5 @@
 function ecr_login() {
-    $(aws ecr get-login --no-include-email --region us-west-2)
+    $(aws ecr get-login --no-include-email --region us-west-2 --registry-ids 608254956046)
 }
 
 
@@ -11,5 +11,5 @@ function run_linter() {
 
 # Some config for fzf
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
+# source /usr/share/doc/fzf/examples/key-bindings.bash
+# source /usr/share/doc/fzf/examples/completion.bash
