@@ -23,6 +23,7 @@ ln -sf $ROOT/git/.gitconfig ~
 # Python
 ln -sf $ROOT/python/.flake8 ~
 ln -sf $ROOT/python/.pep8 ~
+ln -sf $ROOT/python/pycodestyle ~/.config/pycodestyle
 
 # $
 ln -sf $ROOT/r/.lintr ~
