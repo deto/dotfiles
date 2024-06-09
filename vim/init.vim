@@ -47,7 +47,8 @@ let g:ackprg = 'ag --vimgrep'
 " Fuzzy Finder
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main'}
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+
 " Needs rg (ripgrep) and recommends fd (sharkdp/fd)
 " Needs fzf
 "
@@ -80,7 +81,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " Bufferline!
 
 Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 
 " New Tree view
 Plug 'kyazdani42/nvim-tree.lua'
