@@ -286,16 +286,10 @@ lua << EOF
         settings = {
             pylsp = {
                 plugins = {
-                    flake8 = {
+                    ruff = {  -- 'pip install python-lsp-ruff'
                         enabled = true,
-                        config = '~/.flake8',
-                    },
-                    pycodestyle = {
-                        enabled = false,
-                    },
-                    pyflakes = {
-                        enabled = false,
-                    },
+                        formatEnabled = true,
+                    }
                 }
             }
         }
