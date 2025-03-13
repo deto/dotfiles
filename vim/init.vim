@@ -87,6 +87,11 @@ Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
 
+" Copilot
+Plug 'github/copilot.vim'
+" Plug 'nvim-lua/plenary.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+
 call plug#end()
 
 set background=dark
@@ -440,12 +445,12 @@ lua << EOF
     -- Config for nvim-treesitter
     -- Just enable highlighting for now
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = {"python", "r", "vim", "lua"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = {"python", "r", "vim", "lua", "vimdoc", "luadoc", "markdown"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,                            -- false will disable the whole extension
-            disable = { "c", "rust" },    -- list of language that will be disabled
+            disable = { "c", "rust", "help" },    -- list of language that will be disabled
             -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
             -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
             -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -490,5 +495,14 @@ lua << EOF
 
     require("nvim-tree").setup()
     vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+    -- Copilot
+    vim.keymap.set('i', '<leader><Space>', 'copilot#Accept()', {
+      expr = true,
+      replace_keycodes = false
+    })
+    vim.g.copilot_no_tab_map = true
+    require("CopilotChat").setup()
+
 
 EOF
