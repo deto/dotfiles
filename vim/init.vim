@@ -274,7 +274,7 @@ lua << EOF
       end
     }
 
-    vim.lsp.set_log_level("debug")
+    -- vim.lsp.set_log_level("debug")
 
     local lspconfig = require('lspconfig')
 
@@ -497,11 +497,19 @@ lua << EOF
     vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
     -- Copilot
-    vim.keymap.set('i', '<leader><Space>', 'copilot#Accept()', {
+    vim.keymap.set('i', '<C-l>', 'copilot#Accept()', {
       expr = true,
       replace_keycodes = false
     })
     vim.g.copilot_no_tab_map = true
+
+    vim.g.copilot_enabled = false
+    vim.keymap.set('i', '<C-r>', '<Plug>(copilot-suggest)')
+    vim.keymap.set('i', '<C-j>', '<Plug>(copilot-next)')
+    vim.keymap.set('i', '<C-k>', '<Plug>(copilot-previous)')
+    vim.keymap.set('', '<leader>cc', ':CopilotChat<CR>')
+    vim.keymap.set('', '<leader>cp', ':Copilot panel<CR>')
+
     require("CopilotChat").setup()
 
 
