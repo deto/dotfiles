@@ -1,7 +1,0 @@
-{
-    "signature.enable": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": false,
-    "diagnostic.displayByAle": true,
-    "python.jediEnabled": true
-}

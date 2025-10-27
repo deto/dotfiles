@@ -12,17 +12,7 @@ let g:slime_preserve_curpos = 1
 let g:slime_paste_file = tempname()
 
 "Colorscheme plugins!
-Plug 'sickill/vim-monokai'
-Plug 'geetarista/ego.vim'
-Plug 'antlypls/vim-colors-codeschool'
-Plug 'tomasr/molokai'
-Plug 'zeis/vim-kolor'
-Plug 'chriskempson/base16-vim'
 Plug 'patstockwell/vim-monokai-tasty'
-
-"Terminal Colorschemes
-Plug 'scwood/vim-hybrid'
-Plug 'gummesson/stereokai.vim'
 
 "StatusLine Plugin
 Plug 'itchyny/lightline.vim'
@@ -87,11 +77,6 @@ Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons' " (for coloured icons)
 
-" Copilot
-Plug 'github/copilot.vim'
-" Plug 'nvim-lua/plenary.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim'
-
 call plug#end()
 
 set background=dark
@@ -152,7 +137,7 @@ set matchpairs+=<:>
 set encoding=utf-8
 
 "Use the system clipboard by default
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 "Remap H and L (top, bottom of screen) to (left, right of line)
 nnoremap H ^
@@ -180,7 +165,7 @@ set nowrap
 " Python Specific
 " Use autopep8 for autocorrecting
 " au FileType python setlocal formatprg=autopep8\ --aggressive\ -
-au FileType python setlocal formatprg=black\ -l\ 80\ -q\ -
+" au FileType python setlocal formatprg=black\ -l\ 80\ -q\ -
 
 " Get rid of bells
 set noeb
@@ -255,39 +240,39 @@ lua << EOF
     vim.g.loaded = 1
     vim.g.loaded_netrwPlugin = 1
 
-    local lsp_defaults = {
-      flags = {
-        debounce_text_changes = 150,
-      },
-      capabilities = require('cmp_nvim_lsp').default_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
-      ),
-      on_attach = function(client, bufnr)
-        vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
+    -- local lsp_defaults = {
+    --   flags = {
+    --     debounce_text_changes = 150,
+    --   },
+    --   capabilities = require('cmp_nvim_lsp').default_capabilities(
+    --     vim.lsp.protocol.make_client_capabilities()
+    --   ),
+    --   on_attach = function(client, bufnr)
+    --     vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
 
-        if client.server_capabilities.documentFormattingProvider == true then
-            -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-            -- Add this <leader> bound mapping so formatting the entire document is easier.
-            vim.keymap.set("n", "<leader>gq", vim.lsp.buf.format, {buffer = true})
-            vim.keymap.set("v", "gq", vim.lsp.buf.format, {buffer = true})
-        end
-      end
-    }
+    --     if client.server_capabilities.documentFormattingProvider == true then
+    --         -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+    --         -- Add this <leader> bound mapping so formatting the entire document is easier.
+    --         vim.keymap.set("n", "<leader>gq", vim.lsp.buf.format, {buffer = true})
+    --         vim.keymap.set("v", "gq", vim.lsp.buf.format, {buffer = true})
+    --     end
+    --   end
+    -- }
 
-    -- vim.lsp.set_log_level("debug")
-
-    local lspconfig = require('lspconfig')
 
     -- This merges our lsp_defaults with the default lsp configs
-    lspconfig.util.default_config = vim.tbl_deep_extend(
-      'force',
-      lspconfig.util.default_config,
-      lsp_defaults
-    )
+    -- lspconfig.util.default_config = vim.tbl_deep_extend(
+    --   'force',
+    --   lspconfig.util.default_config,
+    --   lsp_defaults
+    -- )
 
     -- options are here: https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
     -- Can maybe use both pylsp and pyright?  https://www.reddit.com/r/neovim/comments/sazbw6/python_language_servers/
-    lspconfig.pylsp.setup{
+
+    vim.lsp.set_log_level("debug")
+
+    vim.lsp.config('pylsp', {
         settings = {
             pylsp = {
                 plugins = {
@@ -298,67 +283,60 @@ lua << EOF
                 }
             }
         }
-    }  -- requires `pip install python-language-server`
-    lspconfig.r_language_server.setup{} -- requires `install.packages('languageserver')`
+    })
+    vim.lsp.enable('pylsp') -- requires `pip install python-language-server`
+
+    -- vim.lsp.config('basedpyright', {
+    --     settings = {
+    --       basedpyright = {
+    --         analysis = {
+    --           autoSearchPaths = true,
+    --           diagnosticMode = "openFilesOnly",
+    --           useLibraryCodeForTypes = true
+    --         }
+    --       }
+    --     }
+    -- })
+    -- vim.lsp.enable('basedpyright') -- requires `pip install basedpyright`
 
     vim.opt.signcolumn = "yes" -- reserves space along left side for diag signs
 
+    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+    vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
     -- Setup Keybindings, uses the autocommand group from lsp_defaults earlier
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'LspAttached',
-      desc = 'LSP actions',
-      callback = function()
-        local bufmap = function(mode, lhs, rhs)
-          local opts = {buffer = true}
-          vim.keymap.set(mode, lhs, rhs, opts)
-        end
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+      callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        -- Displays hover information about the symbol under the cursor
-        bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+        vim.bo[ev.buf].formatexpr = "v:lua.vim.lsp.formatexpr()"
 
-        -- Jump to the definition
-        bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-
-        -- Jump to declaration
-        bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-
-        -- Lists all the implementations for the symbol under the cursor
-        bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-
-        -- Jumps to the definition of the type symbol
-        bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-
-        -- Lists all the references 
-        bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-
-        -- Displays a function's signature information
-        bufmap('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-
-        -- Renames all references to the symbol under the cursor
-        bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-
-        -- Selects a code action available at the current cursor position
-        bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-        bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
-
-        -- Show diagnostics in a floating window
-        bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-
-        -- Move to the previous diagnostic
-        bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-
-        -- Move to the next diagnostic
-        bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-
-        -- Other options, potentially useful?
+        -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-        -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-        -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-        -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-        -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-      end
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set('n', '<space>wl', function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
+        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', '<space>f', function()
+          vim.lsp.buf.format { async = true }
+        end, opts)
+      end,
     })
 
     -- Setup nvim-cmp.
@@ -428,18 +406,16 @@ lua << EOF
         },
     })
 
-    local sign = function(opts)
-      vim.fn.sign_define(opts.name, {
-        texthl = opts.name,
-        text = opts.text,
-        numhl = ''
-      })
-    end
-
-    sign({name = 'DiagnosticSignError', text = '✘'})
-    sign({name = 'DiagnosticSignWarn', text = '▲'})
-    sign({name = 'DiagnosticSignHint', text = '⚑'})
-    sign({name = 'DiagnosticSignInfo', text = ''})
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "✘",
+          [vim.diagnostic.severity.WARN]  = "▲",
+          [vim.diagnostic.severity.HINT]  = "⚑",
+          [vim.diagnostic.severity.INFO]  = "",
+        },
+      },
+    })
 
 
     -- Config for nvim-treesitter
@@ -495,22 +471,5 @@ lua << EOF
 
     require("nvim-tree").setup()
     vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-
-    -- Copilot
-    vim.keymap.set('i', '<C-l>', 'copilot#Accept()', {
-      expr = true,
-      replace_keycodes = false
-    })
-    vim.g.copilot_no_tab_map = true
-
-    vim.g.copilot_enabled = false
-    vim.keymap.set('i', '<C-r>', '<Plug>(copilot-suggest)')
-    vim.keymap.set('i', '<C-j>', '<Plug>(copilot-next)')
-    vim.keymap.set('i', '<C-k>', '<Plug>(copilot-previous)')
-    vim.keymap.set('', '<leader>cc', ':CopilotChat<CR>')
-    vim.keymap.set('', '<leader>cp', ':Copilot panel<CR>')
-
-    require("CopilotChat").setup()
-
 
 EOF
