@@ -11,5 +11,3 @@ alias tree='tree -C' #Automatically use color
 alias ssh='ssh -X' #Automatically enable X11 forwarding
 
 alias vim='nvim -u ~/.config/nvim/init_minimal.vim'
-
-alias gradle='JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 gradle'

@@ -13,7 +13,6 @@ fi
 
 ln -sf $ROOT/vim/init.vim ~/.config/nvim
 ln -sf $ROOT/vim/init_minimal.vim ~/.config/nvim
-ln -sf $ROOT/vim/coc-settings.json ~/.config/nvim
 
 nvim --headless +PlugInstall +qa
 
@@ -27,12 +26,6 @@ ln -sf $ROOT/python/pycodestyle ~/.config/pycodestyle
 
 # $
 ln -sf $ROOT/r/.lintr ~
-
-mkdir -p ~/.jupyter/custom
-ln -sf $ROOT/python/jupyter_custom.js ~/.jupyter/custom/custom.js
-
-mkdir -p ~/.config/matplotlib
-ln -sf $ROOT/python/matplotlibrc ~/.config/matplotlib
 
 # Setup for Other Unix Tools
 ln -sf $ROOT/bash/.bash_aliases ~
