@@ -82,7 +82,7 @@ call plug#end()
 set background=dark
 colorscheme vim-monokai-tasty
 
-set mouse=a
+set mouse=
 
 set tabstop=4
 set expandtab
@@ -224,6 +224,12 @@ xmap <c-c><c-c> <Plug>SlimeRegionSend
 nmap <c-c><c-c> :<c-u>call SendCell('^#.\+%%')<cr>
 nmap <c-c>v     <Plug>SlimeConfig
 
+augroup CellSending
+    autocmd!
+    " When entering an R Markdown file (rmd), map <C-c><C-c> to search for backticks
+    autocmd FileType rmd,markdown nmap <buffer> <c-c><c-c> :<c-u>call SendCell('^```')<cr>
+augroup END
+
 " Turn off search highligting more easily
 nmap <silent> <cr> :nohl<cr>
 
@@ -323,7 +329,7 @@ lua << EOF
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        -- vim.keymap.set('n', '<C-K>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
         vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
         vim.keymap.set('n', '<space>wl', function()
