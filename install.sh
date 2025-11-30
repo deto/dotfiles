@@ -1,20 +1,11 @@
 #!/bin/bash
 
-ROOT=$(pwd)
+# Get the directory this script is in
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Setup for neovim
 mkdir -p ~/.config
-mkdir -p ~/.config/nvim
-
-if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
-    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-ln -sf $ROOT/vim/init.vim ~/.config/nvim
-ln -sf $ROOT/vim/init_minimal.vim ~/.config/nvim
-
-nvim --headless +PlugInstall +qa
+ln -s $ROOT/nvim ~/.config/nvim
 
 # git
 ln -sf $ROOT/git/.gitconfig ~
@@ -24,7 +15,7 @@ ln -sf $ROOT/python/.flake8 ~
 ln -sf $ROOT/python/.pep8 ~
 ln -sf $ROOT/python/pycodestyle ~/.config/pycodestyle
 
-# $
+# R
 ln -sf $ROOT/r/.lintr ~
 
 # Setup for Other Unix Tools
