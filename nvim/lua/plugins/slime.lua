@@ -1,12 +1,14 @@
 return {
   "jpalardy/vim-slime",
+  init = function()
+    vim.g.slime_no_mappings = 1
+  end,
   config = function()
     -- Plugin options (converted from Vimscript)
     vim.g.slime_target = "tmux"
     vim.g.slime_bracketed_paste = 1
     vim.g.slime_preserve_curpos = 1
     vim.g.slime_paste_file = vim.fn.tempname()
-    vim.g.slime_no_mappings = 1
 
     -- Optional: Lua version of SendCell function
     function _G.SendCell()
@@ -17,7 +19,7 @@ return {
         pattern = "^```"
       else
         -- default: Jupyter style (e.g. Python with # %%)
-        pattern = "^#..%%"
+        pattern = "^# %%"
       end
 
       local start_line = vim.fn.search(pattern, "bnW")
