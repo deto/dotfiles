@@ -10,3 +10,6 @@ opt.relativenumber = false
 
 -- remove ro, don't automatically continue comment lines
 opt.formatoptions = "jcqlnt" -- jcroqlnt is default
+
+-- set the python3_host_prog
+vim.g.python3_host_prog = vim.fn.expand("~/.venv/bin/python")
