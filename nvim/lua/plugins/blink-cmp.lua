@@ -12,8 +12,10 @@ return {
       },
       signature = {
         enabled = false,
-        show_on_trigger_character = false,
-        show_on_insert_on_trigger_character = false,
+        trigger = {
+          show_on_trigger_character = false,
+          show_on_insert_on_trigger_character = false,
+        },
       },
       keymap = {
         preset = "super-tab",
