@@ -5,6 +5,7 @@ return {
       strategies = {
         chat = {
           adapter = "copilot",
+          model = "GPT-5.4",
         },
       },
     },
