@@ -1,2 +1,4 @@
 *.bak
 migrated
+
+*__pycache__/
