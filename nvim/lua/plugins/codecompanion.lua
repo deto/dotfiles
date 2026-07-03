@@ -2,10 +2,21 @@ return {
   {
     "olimorris/codecompanion.nvim",
     opts = {
-      strategies = {
+      interactions = {
         chat = {
-          adapter = "copilot",
-          model = "GPT-5.4",
+          adapter = "codex",
+        },
+      },
+      adapters = {
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                -- @agentclientprotocol/codex-acp advertises this auth method as "chat-gpt".
+                auth_method = "chat-gpt",
+              },
+            })
+          end,
         },
       },
     },
