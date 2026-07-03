@@ -18,8 +18,16 @@ function gssh() {
     # 4. Run the command
     gcloud compute ssh "$target" "$@" -- \
         -L 8787:localhost:8787 \
+        -L 8001:localhost:8001 \
+        -L 8002:localhost:8002 \
+        -L 8003:localhost:8003 \
+        -L 8004:localhost:8004 \
+        -L 8005:localhost:8005 \
+        -L 7474:localhost:7474 \
+        -L 7687:localhost:7687 \
         -A \
         -Y \
+        -C \
         -o SendEnv="AWS_*"
 }
 
