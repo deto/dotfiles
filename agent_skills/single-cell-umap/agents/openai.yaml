@@ -1,0 +1,4 @@
+interface:
+  display_name: "Single-Cell UMAP"
+  short_description: "Readable single-cell UMAP plots"
+  default_prompt: "Create single-cell UMAP plots with randomized categorical draw order, distinct covariate palettes, gray-zero expression feature plots, and cluster/signature panels."

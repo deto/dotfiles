@@ -1,0 +1,7 @@
+interface:
+  display_name: "Snakemake Google Cloud"
+  short_description: "Company defaults for Snakemake on GCP"
+  default_prompt: "Use $snakemake-google-cloud to configure this Snakemake workflow for Google Batch and GCS."
+
+policy:
+  allow_implicit_invocation: true
