@@ -11,5 +11,8 @@ opt.relativenumber = false
 -- remove ro, don't automatically continue comment lines
 opt.formatoptions = "jcqlnt" -- jcroqlnt is default
 
+-- use system clipboard for all yank/delete/put operations
+opt.clipboard = "unnamedplus"
+
 -- set the python3_host_prog
 vim.g.python3_host_prog = vim.fn.expand("~/.venv/bin/python")
