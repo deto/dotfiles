@@ -22,21 +22,26 @@ return {
         pattern = "^# %%"
       end
 
-      local start_line = vim.fn.search(pattern, "bnW")
+      local start_line = vim.fn.search(pattern, "bcnW")
       if start_line == 0 then
         start_line = 1
       else
         start_line = start_line + 1
       end
 
-      local stop_line = vim.fn.search(pattern, "nW")
-      if stop_line ~= 0 then
-        stop_line = stop_line - 1
+      local next_cell_line = vim.fn.search(pattern, "nW")
+      local stop_line
+      if next_cell_line ~= 0 then
+        stop_line = next_cell_line - 1
       else
         stop_line = vim.fn.line("$")
       end
 
       vim.fn["slime#send_range"](start_line, stop_line)
+
+      if next_cell_line ~= 0 then
+        vim.api.nvim_win_set_cursor(0, { next_cell_line, 0 })
+      end
     end
   end,
   keys = {
