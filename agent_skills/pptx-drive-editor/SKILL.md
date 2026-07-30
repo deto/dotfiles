@@ -29,6 +29,14 @@ underlying OOXML, not by flattening slides to images.
 
 Use these values in all `drive_client(...)` calls unless the user specifies otherwise.
 
+## Layout conventions
+
+When building DVC43 analysis decks from markdown, use these template layouts:
+
+- Title slides → `Title slide 1`
+- Content slides → `Basic Content 2`
+- Section headers → `Section header`
+
 ## When this applies
 
 - The deck is a real `.pptx` file in Drive (not a native Google Slides file).

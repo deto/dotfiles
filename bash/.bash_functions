@@ -91,3 +91,5 @@ cd() {
     fi
     return $?
 }
+
+export EDITOR=nvim

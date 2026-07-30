@@ -95,7 +95,7 @@ Prefer scripts with a CLI:
 - Structured IO with `scanpy`, `anndata`, `pandas`, `pyarrow`, or domain libraries instead of ad hoc parsing.
 - Small reusable helper modules only when the same logic is shared by multiple analyses.
 
-For AnnData/single-cell projects, read documented metadata before assuming column semantics. Preserve cell identifiers when writing per-cell tables, and write summary tables alongside figures.
+For AnnData/single-cell projects, read documented metadata before assuming column semantics. Preserve cell identifiers when writing per-cell tables.
 
 ## R Code and Packages
 
@@ -133,7 +133,7 @@ For Snakemake rules that run R scripts, call R through the project root so `.Rpr
 
 ## Plots
 
-Generate plots through Snakemake. Save the plotting data or summary table next to each figure. Before handoff, inspect rendered plots when feasible and iterate on cut-off labels, overlapping text, misleading axes, missing legends, or plot limits that hide relevant data.
+Generate plots through Snakemake. Before handoff, inspect rendered plots when feasible and iterate on cut-off labels, overlapping text, misleading axes, missing legends, or plot limits that hide relevant data.
 
 For PDF plot sets, consider writing a first-page PNG preview to validate plot appearance
 
