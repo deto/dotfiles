@@ -157,6 +157,14 @@ package or look off:
 - If you parse XML programmatically, use `defusedxml.minidom` — `xml.etree`
   mangles the namespaces.
 
+### Placeholder hygiene
+
+- Prefer the layout's existing title placeholder. Do not add a second title text box while leaving the original placeholder on the slide. Create a replacement title box only when no suitable placeholder exists; if replacing one, remove the slide-level placeholder rather than merely clearing its text.
+- Remove unused slide-level body, subtitle, picture, and content placeholders from generated slides. Empty placeholders remain selectable in PowerPoint and clutter the editing surface. Do not alter placeholders on the shared layout or master.
+- After generation, inspect the slide shape inventory. Require exactly one title-bearing shape, no unused empty placeholders other than intentional slide-number/footer placeholders, and the expected number of pictures and captions.
+- Make generated-slide replacement idempotent by matching durable title text or another semantic marker. Do not rely only on shape names: Drive and `python-pptx` round trips may rename shapes.
+- Recheck the final slide count after every update so a failed match cannot silently append duplicate generated slides.
+
 ## Critical Drive gotchas
 
 - **`supportsAllDrives=True` on every call.** The helper sets it; if you add raw
