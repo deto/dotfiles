@@ -4,11 +4,24 @@ return {
     vim.g.slime_no_mappings = 1
   end,
   config = function()
+    local tmux_transport = require("config.slime_tmux")
+
     -- Plugin options (converted from Vimscript)
     vim.g.slime_target = "tmux"
     vim.g.slime_bracketed_paste = 1
     vim.g.slime_preserve_curpos = 1
     vim.g.slime_paste_file = vim.fn.tempname()
+
+    -- vim-slime uses tmux's latest unnamed paste buffer. Its chunk loop also
+    -- tries to paste an empty chunk when the text length is a multiple of 1000,
+    -- causing tmux to paste unrelated clipboard history. Use a private named
+    -- buffer and never attempt an empty chunk.
+    _G.SlimeTmuxSend = tmux_transport.send
+    vim.cmd([[
+      function! SlimeOverrideSend(config, text) abort
+        call v:lua.SlimeTmuxSend(a:config, a:text)
+      endfunction
+    ]])
 
     -- Optional: Lua version of SendCell function
     function _G.SendCell()
