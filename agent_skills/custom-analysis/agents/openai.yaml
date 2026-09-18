@@ -1,4 +1,0 @@
-interface:
-  display_name: "Custom Analysis"
-  short_description: "Initialize and structure bioinformatics analyses"
-  default_prompt: "Use $custom-analysis to initialize or extend a traceable Snakemake-backed bioinformatics analysis."
